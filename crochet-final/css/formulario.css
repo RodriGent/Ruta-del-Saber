@@ -1,0 +1,524 @@
+/* ========== SOLUCIÓN SUPER AGRESIVA ========== */
+/* BASE ya grande para todos */
+body {
+    zoom: 1.2 !important;
+    font-size: 19px !important;
+}
+
+.slide-form input, 
+.slide-form textarea,
+.slide-form button {
+    font-size: 20px !important;
+    padding: 16px !important;
+    margin: 12px 0 !important;
+}
+
+/* MÓVIL: MEGA GRANDE */
+@media screen and (max-width: 768px) {
+    body {
+        zoom: 1.6 !important;
+        font-size: 22px !important;
+    }
+    
+    .slide-form {
+        transform: scale(1.4) !important;
+        transform-origin: top center !important;
+    }
+    
+    .slide-form input, 
+    .slide-form textarea,
+    .slide-form button {
+        font-size: 24px !important;
+        padding: 20px !important;
+        margin: 15px 0 !important;
+    }
+    
+    .slide-form h2 {
+        font-size: 2.5rem !important;
+    }
+}
+
+/* COMPUTADORA: normal */
+@media screen and (min-width: 1024px) {
+    body {
+        zoom: 1 !important;
+    }
+    
+    .slide-form {
+        transform: scale(1) !important;
+    }
+}
+:root {
+    --clr-main:#0b9265;
+    --clr-main-light:#69f69a;
+    --clr-white:#ececec;
+    --clr-gray:#e2e2e2;
+    --clr-red:#961818;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}:root {
+    --clr-main:#0b9265;
+    --clr-main-light:#69f69a;
+    --clr-white:#ececec;
+    --clr-gray:#e2e2e2;
+    --clr-red:#961818;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #17c286;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    font-size: 16px; /* Base más grande */
+}
+
+/* ========== HEADER FORMULARIO ========== */
+.formulario-header {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50px);
+    background: linear-gradient(to right, #6ff8b8, #0a815e);
+    padding: 1rem 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    z-index: 999;
+    animation: slideIn 1s ease forwards;
+    opacity: 0;
+    width: auto;
+    max-width: 90%;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.formulario-header .imglogo {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    border: 2px solid white;
+}
+
+.formulario-header .logo {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin: 0;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    white-space: nowrap;
+}
+
+/* ========== FORMULARIO PRINCIPAL - MÁS GRANDE ========== */
+.slide-form { 
+    background: linear-gradient(to right, #6ff8b8, #0a815e); 
+    padding: 35px; 
+    border-radius: 15px; 
+    width: 95%; 
+    max-width: 450px;
+    overflow: hidden; 
+    animation: slideIn 1s ease forwards; 
+    transform: translateY(50px); 
+    opacity: 0; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    margin-top: 120px;
+    margin-bottom: 120px;
+}
+
+@keyframes slideIn { 
+    to { 
+        transform: translateY(0); 
+        opacity: 1; 
+    } 
+}
+
+.slide-form h2 {
+    color: white;
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+.slide-form input, .slide-form textarea { 
+    width: 100%; 
+    padding: 16px; 
+    margin-top: 20px; 
+    border: none; 
+    border-radius: 10px; 
+    font-size: 18px; 
+    box-sizing: border-box;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
+    color: #0a815e;
+}
+
+.slide-form :focus {
+    outline: 3px solid #17c2ae;
+}
+
+.pago { 
+    background: #2d3436; 
+    color: rgb(70, 214, 138); 
+    text-decoration: none;
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px; 
+    font-size: 1.2rem; 
+    padding: 18px;
+    margin-top: 25px;
+    cursor: pointer;
+    border: none;
+    width: 100%;
+    transition: background-color 0.3s;
+    font-weight: bold;
+}
+
+.pago:hover {
+    background: #1a1e1f;
+}
+
+/* ========== SECCIONES INFORMATIVAS MÁS GRANDES ========== */
+.info-contacto, .frase-motivadora, .aviso-privacidad, .consecuencias {
+    background: rgba(17, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 12px;
+    margin: 20px 0;
+    border-left: 5px solid #17c286;
+    font-size: 1rem;
+}
+
+.info-contacto h3 {
+    color: rgb(8, 43, 23);
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+.info-contacto ul, .consecuencias ul {
+    margin: 12px 0;
+    padding-left: 20px;
+}
+
+.info-contacto li, .consecuencias li {
+    color: rgb(34, 2, 2);
+    font-size: 1rem;
+    margin: 8px 0;
+}
+
+.frase-motivadora p {
+    color: white;
+    text-align: center;
+    font-style: italic;
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.aviso-privacidad p, .consecuencias p {
+    color: rgb(10, 57, 40);
+    margin: 0;
+    font-size: 1rem;
+}
+
+.aviso-input {
+    color: #01150d;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 0.95rem;
+    display: block;
+    margin-top: 8px;
+    margin-bottom: 20px;
+}
+
+/* ========== FOOTER FORMULARIO ========== */
+.formulario-footer {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%) translateY(50px);
+    background: linear-gradient(to right, #093822, #0a815e);
+    padding: 0.8rem 1.2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    z-index: 999;
+    animation: slideIn 1s ease forwards;
+    opacity: 0;
+    width: auto;
+    max-width: 85%;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.formulario-footer .texto-footer {
+    color: white;
+    font-size: 0.8rem;
+    margin: 0;
+    font-weight: bold;
+}
+
+.formulario-footer .contenedor-bolivia {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.formulario-footer .lugar {
+    color: white;
+    font-size: 0.7rem;
+    margin: 0;
+    font-family: Georgia, Times, 'Times New Roman', serif;
+}
+
+.formulario-footer .imglogo-bolivia {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1px solid white;
+}
+
+/* ========== BOTONES FLOTANTES ========== */
+.flotante-pago-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--clr-main);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 65px;
+    height: 65px;
+    font-size: 1.6rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    z-index: 1000;
+    transition: transform 0.3s, background 0.3s;
+}
+
+.flotante-pago-btn:hover {
+    background: #0a815e;
+    transform: scale(1.1);
+}
+
+.flotante-redes-btn {
+    position: fixed;
+    bottom: 95px;
+    right: 20px;
+    background: var(--clr-main);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 65px;
+    height: 65px;
+    font-size: 1.6rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    z-index: 1000;
+    transition: transform 0.3s, background 0.3s;
+}
+
+.flotante-redes-btn:hover {
+    background: #0a815e;
+    transform: scale(1.1);
+}
+
+/* ========== MODALES ========== */
+.modal-pago, .modal-redes {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 320px;
+    height: 100%;
+    background: white;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+    z-index: 1001;
+    animation: slideInRight 0.3s ease;
+}
+
+.modal-pago.mostrar, .modal-redes.mostrar {
+    display: block;
+}
+
+@keyframes slideInRight {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+
+.modal-contenido {
+    padding: 2.5rem;
+    position: relative;
+    height: 100%;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.cerrar-modal {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: #666;
+}
+
+.modal-contenido h3 {
+    color: var(--clr-main);
+    margin-bottom: 1.8rem;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.metodo-pago-item, .redes-item {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 1.2rem;
+    background: #f8f9fa;
+    border-radius: 12px;
+    margin-top: 1.2rem;
+}
+
+.redes-item:hover {
+    transform: translateX(-5px);
+    background: #e9ecef;
+    transition: transform 0.2s;
+}
+
+.imglogo-pagos {
+    width: 65px;
+    height: 65px;
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+}
+
+.metodo-info strong, .redes-info strong {
+    color: var(--clr-main);
+    display: block;
+    font-size: 1.1rem;
+}
+
+.metodo-info p, .redes-info p {
+    color: #666;
+    margin: 0;
+    font-size: 1rem;
+}
+
+.metodo-info small {
+    color: #888;
+    font-size: 0.9rem;
+}
+
+.link-redes {
+    display: inline-block;
+    margin-top: 0.6rem;
+    padding: 0.4rem 1rem;
+    background: var(--clr-main);
+    color: white;
+    text-decoration: none;
+    border-radius: 18px;
+    font-size: 0.9rem;
+    transition: background 0.3s;
+}
+
+.link-redes:hover {
+    background: #0a815e;
+}
+
+/* ========== RESPONSIVE ========== */
+@media screen and (max-width: 600px) {
+    .modal-pago, .modal-redes {
+        width: 100%;
+    }
+    
+    .flotante-pago-btn, .flotante-redes-btn {
+        bottom: 15px;
+        right: 15px;
+        width: 60px;
+        height: 60px;
+        font-size: 1.4rem;
+    }
+    
+    .flotante-redes-btn {
+        bottom: 85px;
+    }
+    
+    .redes-item {
+        padding: 1rem;
+    }
+    
+    .slide-form {
+        margin-top: 100px;
+        margin-bottom: 100px;
+        padding: 25px;
+    }
+    
+    .formulario-header {
+        top: 5px;
+        padding: 0.8rem 1rem;
+    }
+    
+    .formulario-header .imglogo {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .formulario-header .logo {
+        font-size: 1.1rem;
+    }
+    
+    .formulario-footer {
+        bottom: 5px;
+        padding: 0.7rem 1rem;
+    }
+    
+    .formulario-footer .texto-footer {
+        font-size: 0.75rem;
+    }
+    
+    .formulario-footer .lugar {
+        font-size: 0.65rem;
+    }
+}
+
+/* Para pantallas grandes (escritorio) */
+@media screen and (min-width: 768px) {
+    .formulario-header {
+        top: 20px;
+        left: 20px;
+        transform: translateX(0) translateY(-50px);
+    }
+    
+    .formulario-footer {
+        bottom: 20px;
+        left: 20px;
+        transform: translateX(0) translateY(50px);
+    }
+    
+    .header-content {
+        justify-content: flex-start;
+    }
+}

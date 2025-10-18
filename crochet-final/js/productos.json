@@ -1,0 +1,224 @@
+[
+    {
+        "id": "llavero-01",
+        "titulo": "GATOS DE COLORES",
+        "imagen": "img/llaveros/01.jpeg",
+        "categoria": {
+            "nombre": "Llaveros",
+            "id": "llaveros"
+            
+        },
+        "precio": 15,
+       "disponible": 4
+    },
+    {
+        "id": "llavero-02",
+        "titulo": "PULPINI",
+        "imagen": "img/llaveros/02.jpg",
+        "categoria": {
+            "nombre": "Llaveros",
+            "id": "llaveros"
+        },
+        "precio": 15,
+         "disponible": 6
+    },
+    {
+        "id": "llavero-03",
+        "titulo": "SOUT SPRIT",
+        "imagen": "img/llaveros/03.jpg",
+        "categoria": {
+            "nombre": "Llaveros",
+            "id": "llaveros"
+        },
+        "precio": 15,
+         "disponible": 4
+    },
+    {
+        "id": "llavero-04",
+        "titulo": "NAVIN",
+        "imagen": "img/llaveros/04.jpg",
+        "categoria": {
+            "nombre": "Llaveros",
+            "id": "llaveros"
+        },
+        "precio": 20,
+         "disponible": 2
+    },
+      {
+        "id": "llavero-05",
+        "titulo": "TRALALERITO",
+        "imagen": "img/llaveros/05.jpeg",
+        "categoria": {
+            "nombre": "Llaveros",
+            "id": "llaveros"
+            
+        },
+        "precio": 20,
+       "disponible": 9
+    },
+       {
+        "id": "llavero-06",
+        "titulo": "KOALA",
+        "imagen": "img/llaveros/06.jpg",
+        "categoria": {
+            "nombre": "Llaveros",
+            "id": "llaveros"
+        },
+        "precio": 20,
+         "disponible": 0
+    },
+       {
+        "id": "llavero-07",
+        "titulo": "FRUTILLA",
+        "imagen": "img/llaveros/07.jpg",
+        "categoria": {
+            "nombre": "Llaveros",
+            "id": "llaveros"
+        },
+        "precio": 15,
+         "disponible": 7
+    },
+       {
+        "id": "llavero-08",
+        "titulo": "BALLENITAS",
+        "imagen": "img/llaveros/08.jpg",
+        "categoria": {
+            "nombre": "Llaveros",
+            "id": "llaveros"
+        },
+        "precio": 15,
+         "disponible": 11
+    },
+    {
+        "id": "personaje-01",
+        "titulo": "LIONEL MESSI",
+        "imagen": "img/personajes/01.jpg",
+        "categoria": {
+            "nombre": "Personajes",
+            "id": "personajes"
+        },
+        "precio": 90,
+         "disponible": 2
+    },
+    {
+        "id": "personaje-02",
+        "titulo": "THE WEEKND",
+        "imagen": "img/personajes/02.jpg",
+        "categoria": {
+            "nombre": "Personajes",
+            "id": "personajes"
+        },
+        "precio": 70,
+         "disponible": 0
+    },
+    {
+        "id": "personaje-03",
+        "titulo": "PRINCESA ELSA",
+        "imagen": "img/personajes/03.jpg",
+        "categoria": {
+            "nombre": "Personajes",
+            "id": "personajes"
+        },
+        "precio": 85,
+         "disponible": 1
+    },
+    {
+        "id": "personaje-04",
+        "titulo": "CRISTIANO RONALDO",
+        "imagen": "img/personajes/04.jpg",
+        "categoria": {
+            "nombre": "Personajes",
+            "id": "personajes"
+        },
+        "precio": 90,
+         "disponible": 2
+    },
+    {
+        "id": "personaje-05",
+        "titulo": "SOLDADO",
+        "imagen": "img/personajes/05.jpg",
+        "categoria": {
+            "nombre": "Personajes",
+            "id": "personajes"
+        },
+        "precio": 80,
+         "disponible": 0
+    },
+    {
+        "id": "personaje-06",
+        "titulo": "LUFFY",
+        "imagen": "img/personajes/06.jpg",
+        "categoria": {
+            "nombre": "Personajes",
+            "id": "personajes"
+        },
+        "precio": 50,
+         "disponible": 1
+    },
+    {
+        "id": "personaje-07",
+        "titulo": "ZORO",
+        "imagen": "img/personajes/07.jpg",
+        "categoria": {
+            "nombre": "Personajes",
+            "id": "personajes"
+        },
+        "precio": 50,
+         "disponible": 1
+    },
+    {
+        "id": "objeto-01",
+        "titulo": "MACETERO",
+        "imagen": "img/objetos/01.jpg",
+        "categoria": {
+            "nombre": "Objetos",
+            "id": "objetos"
+        },
+        "precio": 20,
+         "disponible": 5
+    },
+    {
+        "id": "objeto-02",
+        "titulo": "ROSAS",
+        "imagen": "img/objetos/02.jpeg",
+        "categoria": {
+            "nombre": "Objetos",
+            "id": "objetos"
+        },
+        "precio": 15,
+         "disponible": 5
+    },
+    {
+        "id": "objeto-03",
+        "titulo": "GAMA-CHAN",
+        "imagen": "img/objetos/03.jpg",
+        "categoria": {
+            "nombre": "Objetos",
+            "id": "objetos"
+        },
+        "precio": 35,
+         "disponible": 2
+    },
+    {
+        "id": "objeto-04",
+        "titulo": "BALON",
+        "imagen": "img/objetos/04.jpg",
+        "categoria": {
+            "nombre": "Objetos",
+            "id": "objetos"
+        },
+        "precio": 50,
+         "disponible": 0
+    },
+    {
+        "id": "objeto-05",
+        "titulo": "PALTAS",
+        "imagen": "img/objetos/05.jpg",
+        "categoria": {
+            "nombre": "Objetos",
+            "id": "objetos"
+        },
+        "precio": 30,
+         "disponible": 6
+    }
+]

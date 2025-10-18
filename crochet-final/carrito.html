@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" 
+      content="default-src 'self';
+               script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline';
+               style-src 'self' https://cdn.jsdelivr.net 'unsafe-inline';
+               img-src 'self' data: https:;
+               connect-src 'self' https://formsubmit.co;
+               font-src 'self' https:;">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   
+    <title>Crochet a Mano R&R</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div class="wrapper">
+     <header class="header-mobile">
+    <!-- LOGO + NOMBRE + BANDERA SIEMPRE VISIBLE EN MÓVIL -->
+    <div class="header-contenedor-mobile">
+        <img class="logo-img-mobile" src="img/logo/logo.png" alt="Crochet a Mano R&R">
+        <div class="texto-header-mobile">
+            <h1 class="logo">Crochet a Mano R&R</h1>
+            <div class="ubicacion-mobile">
+                <img class="bandera-mobile" src="img/logo/bolivia.png" alt="Bolivia">
+                <span class="ciudad-mobile">EL ALTO - BOLIVIA</span>
+            </div>
+        </div>
+    </div>
+    <button class="open-menu" id="open-menu">
+        <i class="bi bi-list"></i>
+    </button>
+</header>
+        <aside>
+            <button class="close-menu" id="close-menu">
+                <i class="bi bi-x"></i>
+            </button>
+            <header>
+                <h1 class="logo">Crochet a Mano R&R</h1>
+                <!-- Imagen online de ejemplo para logo de crochet -->
+                <img class="imglogo" src="img/logo/logo.png" alt="Logo Crochet a Mano R&R">
+            </header>
+            <nav>
+                <ul>
+                    <li>
+                        <a class="boton-menu boton-volver" href="index.html">
+                            <i class="bi bi-arrow-return-left"></i> Seguir comprando
+                        </a>
+                    </li>
+                    <li>
+                        <a class="boton-menu boton-carrito active" href="carrito.html">
+                            <i class="bi bi-cart-fill"></i> Carrito
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <footer>
+                <p class="texto-footer">© 2025 Crochet a Mano R&R</p>
+                <!-- Bandera de Bolivia online -->
+                  <div class="contenedor-bolivia">
+                <img class="imglogo-bolivia" src="img/logo/bolivia.png" alt="Bandera de Bolivia">
+                <p class="lugar">EL ALTO - BOLIVIA</p>
+            </div>
+            </footer>
+        </aside>
+        <main>
+            <h2 class="titulo-principal">Carrito</h2>
+            <div class="contenedor-carrito">
+                <p id="carrito-vacio" class="carrito-vacio">Tu carrito está vacío. <i class="bi bi-emoji-frown"></i></p>
+
+                <div id="carrito-productos" class="carrito-productos disabled">
+                    <!-- Esto se va a completar con el JS -->
+                </div>
+
+                <div id="carrito-acciones" class="carrito-acciones disabled">
+                    <div class="llaveros-izquierda">
+                        <button id="carrito-acciones-vaciar" class="carrito-acciones-vaciar">Vaciar carrito</button>
+                    </div>
+               <div class="carrito-acciones-derecha">
+    <div class="carrito-acciones-total">
+        <p>Total:</p>
+        <p id="total">Bs. 0</p>
+    </div>
+    <a class="carrito-acciones-comprar" href="formulario.html">
+        Comprar ahora
+    </a>
+</div>
+                    </div>
+                </div>
+
+                <p id="carrito-comprado" class="carrito-comprado disabled">Muchas gracias por tu compra. <i class="bi bi-emoji-laughing"></i></p>
+            </div>
+        </main>
+    </div>
+<button class="flotante-pago-btn" onclick="abrirModalPago()">
+<i class="bi bi-cash-coin"></i>
+</button>
+
+<!-- MODAL MÉTODOS DE PAGO -->
+<div id="modalPago" class="modal-pago">
+    <div class="modal-contenido">
+        <button class="cerrar-modal" onclick="cerrarModalPago()">×</button>
+        <h3>Métodos de Pago</h3>
+        <div class="metodo-pago-item">
+               <img class="imglogo-pagos" src="img/logo/yape.png" >
+            <div class="metodo-info">
+                <strong>Yape</strong>
+                <p>Pago rápido con QR</p>
+                <small>Escanea el código en la página de pago</small>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- BOTÓN REDES SOCIALES FLOTANTE -->
+<button class="flotante-redes-btn" onclick="abrirModalRedes()">
+    <i class="bi bi-globe2"></i>
+</button>
+
+<!-- MODAL REDES SOCIALES -->
+<div id="modalRedes" class="modal-redes">
+    <div class="modal-contenido">
+        <button class="cerrar-modal" onclick="cerrarModalRedes()">×</button>
+        <h3>Síguenos en nuestras Redes</h3>
+        
+        <div class="redes-item">
+            <img class="imglogo-pagos" src="img/logo/facebook.png" >
+            <div class="redes-info">
+                <strong>Facebook</strong>
+                <p>Crochet a Mano R&R</p>
+                <a href="https://www.facebook.com/profile.php?id=61582311064596" target="_blank" class="link-redes">Visitar página</a>
+            </div>
+        </div>
+        
+        <div class="redes-item">
+              <img class="imglogo-pagos" src="img/logo/instagram.png" >
+            <div class="redes-info">
+                <strong>Instagram</strong>
+                <p>@crochet.a.mano.rr</p>
+                <a href="https://www.instagram.com/crochet.a.mano.rr?igsh=MWs1bHM1bmhvcWxqYg==" target="_blank" class="link-redes">Seguir cuenta</a>
+            </div>
+        </div>
+        
+        <div class="redes-item">
+          <img class="imglogo-pagos" src="img/logo/tiktok.png" >
+            <div class="redes-info">
+                <strong>TikTok</strong>
+                <p>@croche.a.mano.rr</p>
+                <a href="https://www.tiktok.com/@crochet.a.mano.rr?_t=ZM-90aJRM94tTv&_r=1" target="_blank" class="link-redes">Ver videos</a>
+            </div>
+        </div>
+        
+        </div>
+    </div>
+</div>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/carrito.js"></script>
+    <script src="js/menu.js"></script>
+<script>
+// FUNCIONES MEJORADAS - EVITAR CONFLICTOS
+function abrirModalPago() {
+    console.log("Abriendo modal pago...");
+    const modal = document.getElementById('modalPago');
+    if (modal) {
+        modal.classList.add('mostrar');
+        console.log("Modal pago abierto");
+    }
+}
+
+function cerrarModalPago() {
+    const modal = document.getElementById('modalPago');
+    if (modal) {
+        modal.classList.remove('mostrar');
+    }
+}
+
+function abrirModalRedes() {
+    console.log("Abriendo modal redes...");
+    const modal = document.getElementById('modalRedes');
+    if (modal) {
+        modal.classList.add('mostrar');
+        console.log("Modal redes abierto");
+    }
+}
+
+function cerrarModalRedes() {
+    const modal = document.getElementById('modalRedes');
+    if (modal) {
+        modal.classList.remove('mostrar');
+    }
+}
+
+// INICIALIZAR CUANDO LA PÁGINA CARGA
+document.addEventListener('DOMContentLoaded', function() {
+    console.log("Página cargada - inicializando modales");
+    
+    // Modal Pago
+    const modalPago = document.getElementById('modalPago');
+    if (modalPago) {
+        modalPago.addEventListener('click', function(e) {
+            if (e.target === this) {
+                cerrarModalPago();
+            }
+        });
+    }
+    
+    // Modal Redes
+    const modalRedes = document.getElementById('modalRedes');
+    if (modalRedes) {
+        modalRedes.addEventListener('click', function(e) {
+            if (e.target === this) {
+                cerrarModalRedes();
+            }
+        });
+    }
+    
+    console.log("Modales inicializados correctamente");
+});
+</script>
+
+</body>
+</html>

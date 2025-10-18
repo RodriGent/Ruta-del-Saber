@@ -1,0 +1,1302 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+:root {
+    --clr-main:#0b9265;
+     --clr-main-light:#69f69a;
+    --clr-white:#ececec;
+    --clr-gray:#e2e2e2;
+    --clr-red:#961818;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Rubik',sans-serif;
+}
+h1, h2, h3, h4, h5, h6, p, a, input, textarea, ul {
+    margin: 0;
+    padding: 0;
+}
+
+ul{
+    list-style-type: none;
+
+}
+
+a{
+    text-decoration: none;
+}
+
+.wrapper {
+    display:grid;
+    grid-template-columns: 1fr 4fr;
+    background-color:var(--clr-main);
+}
+
+aside {
+    padding:2rem;
+    color:var(--clr-white);
+    position: sticky;
+    top:0;
+    height: 100vh;
+    display:flex;
+    flex-direction: column;
+    justify-content:space-between ;
+}
+
+.logo{
+    font-weight: 400;
+    font-size: 1.3rem;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    
+}
+
+.texto-footer{
+    color:var(--clr-main-light);
+    font-size: .85rem;
+}
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.boton-menu {
+    background-color: transparent;
+    border: 0;
+    color: var(--clr-white);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-weight: 600;
+    padding: 1rem;
+    font-size: .85rem;
+    width: 123%;
+}
+
+.boton-menu.active {
+    background-color: var(--clr-white);
+    color: var(--clr-main);
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    position: relative;
+}
+
+.boton-menu.active::before {
+    content: '';
+    position: absolute;
+    width: 1rem;
+    height: 2rem;
+    bottom: 100%;
+    right: 0;
+    background-color: transparent;
+    border-bottom-right-radius: .5rem;
+    box-shadow: 0 1rem 0 var(--clr-white);
+}
+
+.boton-menu.active::after {
+    content: '';
+    position: absolute;
+    width: 1rem;
+    height: 2rem;
+    top: 100%;
+    right: 0;
+    background-color: transparent;
+    border-top-right-radius: .5rem;
+    box-shadow: 0 -1rem 0 var(--clr-white);
+}
+
+.boton-menu > i.bi-hand-index-thumb-fill,
+.boton-menu > i.bi-hand-index-thumb {
+    transform: rotateZ(90deg);
+}
+
+.boton-carrito {
+    margin-top: 2rem;
+}
+
+.numerito {
+    background-color: var(--clr-white);
+    color: var(--clr-main);
+    padding: .15rem .25rem;
+    border-radius: .25rem;
+}
+
+.boton-carrito.active .numerito {
+    background-color: var(--clr-main);
+    color: var(--clr-white);
+}
+
+.texto-footer {
+    color: var(--clr-main-light);
+    font-size: .85rem;
+}
+
+main {
+    background-color: var(--clr-white);
+    margin: 1rem;
+    margin-left: 0;
+    border-radius: 2rem;
+    padding: 3rem;
+}
+
+.titulo-principal {
+    color: var(--clr-main);
+    margin-bottom: 2rem;
+}
+
+.contenedor-productos {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+.producto {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* ✅ Todas las tarjetas misma altura */
+    background: white;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.producto-imagen {
+    width: 100%;
+    height: 200px; /* ✅ Altura fija para todas */
+    object-fit: cover; /* ✅ Recorta y mantiene proporciones */
+    border-radius: 1rem;
+    display: block;
+}
+
+.producto-detalles {
+    background-color: var(--clr-main);
+    color: var(--clr-white);
+    padding: 1rem;
+    border-radius: 1rem;
+    margin-top: -1rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex-grow: 1; /* ✅ Ocupa espacio restante */
+}
+
+.producto-titulo {
+    font-size: 1rem;
+}
+
+.producto-agregar {
+    border: 0;
+    background-color: var(--clr-white);
+    color: var(--clr-main);
+    padding: 0.5rem;
+    text-transform: uppercase;
+    border-radius: 2rem;
+    cursor: pointer;
+    border: 2px solid var(--clr-white);
+    transition: background-color 0.2s, color 0.2s;
+    margin-top: auto; /* ✅ Empuja el botón hacia abajo */
+}
+
+.producto-agregar:hover {
+    background-color: var(--clr-main);
+    color: var(--clr-white);
+}
+/*IMAGEN MOVIMIENTOS*/
+
+.main-producto {
+    width: 100%;
+    height: 200px; /* ✅ Misma altura que producto-imagen */
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+    object-fit: cover; /* ✅ Agregar esto */
+
+    }
+     .main-producto:hover{
+
+ transform: scale(1.05); 
+    }
+
+
+/** CARRITO **/
+
+.contenedor-carrito {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.carrito-vacio,
+.carrito-comprado {
+    color: var(--clr-main);
+}
+
+.carrito-productos {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.carrito-producto {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--clr-gray);
+    color: var(--clr-main);
+    padding: .5rem;
+    padding-right: 1.5rem;
+    border-radius: 1rem;
+}
+
+.carrito-producto-imagen {
+    width: 4rem;
+    border-radius: 1rem;
+}
+
+.carrito-producto small {
+    font-size: .75rem;
+}
+
+.carrito-producto-eliminar {
+    border: 0;
+    background-color: transparent;
+    color: var(--clr-red);
+    cursor: pointer;
+}
+
+.carrito-acciones {
+    display: flex;
+    justify-content: space-between;
+}
+
+.carrito-acciones-vaciar {
+    border: 0;
+    background-color: var(--clr-gray);
+    padding: 1rem;
+    border-radius: 1rem;
+    color: var(--clr-main);
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.carrito-acciones-derecha {
+    display: flex;
+}
+
+.carrito-acciones-total {
+    display: flex;
+    background-color: var(--clr-gray);
+    padding: 1rem;
+    color: var(--clr-main);
+    text-transform: uppercase;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    gap: 1rem;
+}
+
+.carrito-acciones-comprar {
+    border: 0;
+    background-color: var(--clr-main);
+    padding: 1rem;
+    color: var(--clr-white);
+    text-transform: uppercase;
+    cursor: pointer;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+}
+
+.header-mobile {
+    display: none;
+}
+
+.close-menu {
+    display: none;
+}
+
+.disabled {
+    display: none;
+}
+.formulario{
+        border: 0;
+    background-color: var(--clr-main);
+    padding: 1rem;
+    color: var(--clr-white);
+    text-transform: uppercase;
+    cursor: pointer;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+}
+ li{
+        list-style-type: none;
+}
+.imglogo{
+    width: 100px;
+    height:100px;
+    margin-top: 20px;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+.imglogo-bolivia{
+    width: 30px;
+    height:30px;
+ 
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+
+}
+.imglogo-pagos{
+    width: 60px;
+    height:60px;
+ 
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+
+}
+.lugar{
+    background-color: transparent;
+    border: 0;
+    color:var(--clr-white);
+    font-family: Georgia, Times, 'Times New Roman', serif;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    margin-top: 5px; /* Agregar un poco de espacio arriba */
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 5px; /* Espacio entre elementos */
+}
+
+.contenedor-bolivia {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 5px;
+}
+    
+
+.producto-disponible {
+    font-size: 0.85rem;
+    color: var(--clr-main-light);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+
+.producto-agotado {
+    background-color: #f8d7da ;
+    color: #721c24 ;
+    cursor: pointer ;
+    border: 2px solid #f5c6cb ;
+    opacity: 0.8;
+}
+
+.producto-agotado:hover {
+    background-color: #d73a3a ;
+    color: #f3c8cc ;
+    transform: scale(1.02);
+}
+ 
+
+/*** MEDIA QUERIES ***/
+
+@media screen and (max-width: 850px) {
+    .contenedor-productos {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 675px) {
+    .contenedor-productos {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 600px) {
+
+    .wrapper {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    aside {
+        position: fixed;
+        z-index: 9;
+        background-color: var(--clr-main);
+        left: 0;
+        box-shadow: 0 0 0 100vmax rgba(0, 0, 0, .75);
+        transform: translateX(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: .2s;
+    }
+
+    .aside-visible {
+        transform: translateX(0);
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .boton-menu.active::before,
+    .boton-menu.active::after {
+        display: none;
+    }
+
+    main {
+        margin: 1rem;
+        margin-top: 0;
+        padding: 2rem;
+    }
+
+    .contenedor-productos {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .header-mobile {
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .header-mobile .logo {
+        color: var(--clr-gray);
+    }
+
+    .open-menu, .close-menu {
+        background-color: transparent;
+        color: var(--clr-gray);
+        border: 0;
+        font-size: 2rem;
+        cursor: pointer;
+    }
+
+    .close-menu {
+        display: block;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+    }
+
+    .carrito-producto {
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        padding: .5rem;
+    }
+
+    .carrito-producto-subtotal {
+        display: none;
+    }
+
+    .carrito-acciones {
+        flex-wrap: wrap;
+        row-gap: 1rem;
+    }
+    
+
+}
+
+
+
+@media screen and (max-width: 400px) {
+    .contenedor-productos {
+        grid-template-columns: 1fr;
+    }
+}
+/* BOTÓN COMPRAR AHORA MEJORADO */
+.carrito-acciones-comprar {
+    border: 0;
+    background-color: var(--clr-main);
+    padding: 1rem;
+    color: var(--clr-white);
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* RESPONSIVE PARA MÓVIL */
+@media screen and (max-width: 600px) {
+    .carrito-acciones {
+        flex-wrap: nowrap;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .carrito-acciones-derecha {
+        display: flex;
+        width: 100%;
+    }
+    
+    .carrito-acciones-total {
+        flex: 1;
+        border-radius: 1rem;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    
+    .carrito-acciones-comprar {
+        flex: 1;
+        border-radius: 1rem;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        font-size: 0.8rem;
+        padding: 1rem 0.5rem;
+    }
+}
+
+/* PARA ESCRITORIO (como antes) */
+@media screen and (min-width: 601px) {
+    .carrito-acciones-derecha {
+        display: flex;
+    }
+    
+    .carrito-acciones-comprar {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+}
+/* BOTÓN FLOTANTE */
+.flotante-pago-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--clr-main);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    z-index: 1000;
+    transition: transform 0.3s, background 0.3s;
+}
+
+.flotante-pago-btn:hover {
+    background: #0a815e;
+    transform: scale(1.1);
+}
+
+/* MODAL */
+.modal-pago {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100%;
+    background: white;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+    z-index: 1001;
+    animation: slideInRight 0.3s ease;
+}
+
+.modal-pago.mostrar {
+    display: block;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+.modal-contenido {
+    padding: 2rem;
+    position: relative;
+    height: 100%;
+}
+
+.cerrar-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+}
+
+.modal-contenido h3 {
+    color: var(--clr-main);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.metodo-pago-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+    margin-top: 1rem;
+}
+
+.metodo-icono {
+    font-size: 1.5rem;
+}
+
+.metodo-info strong {
+    color: var(--clr-main);
+    display: block;
+}
+
+.metodo-info p {
+    color: #666;
+    margin: 0;
+}
+
+.metodo-info small {
+    color: #888;
+    font-size: 0.8rem;
+}
+
+/* RESPONSIVE */
+@media screen and (max-width: 600px) {
+    .modal-pago {
+        width: 100%;
+    }
+    
+    .flotante-pago-btn {
+        bottom: 15px;
+        right: 15px;
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+}
+/* BOTÓN REDES SOCIALES FLOTANTE */
+.flotante-redes-btn {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+   background: var(--clr-main);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    z-index: 1000;
+    transition: transform 0.3s, background 0.3s;
+}
+
+.flotante-redes-btn:hover {
+    background: #0a815e;
+    transform: scale(1.1);
+}
+
+/* MODAL REDES SOCIALES */
+.modal-redes {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 320px;
+    height: 100%;
+    background: white;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+    z-index: 1001;
+    animation: slideInRight 0.3s ease;
+}
+
+.modal-redes.mostrar {
+    display: block;
+}
+
+.redes-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+    margin-top: 1rem;
+    transition: transform 0.2s;
+}
+
+.redes-item:hover {
+    transform: translateX(-5px);
+    background: #e9ecef;
+}
+
+.redes-icono {
+    font-size: 1.8rem;
+}
+
+.redes-info strong {
+    color: var(--clr-main);
+    display: block;
+    margin-bottom: 0.2rem;
+}
+
+.redes-info p {
+    color: #666;
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.link-redes {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.3rem 0.8rem;
+    background: var(--clr-main);
+    color: white;
+    text-decoration: none;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    transition: background 0.3s;
+}
+
+.link-redes:hover {
+    background: #0a815e;
+}
+
+/* RESPONSIVE REDES */
+@media screen and (max-width: 600px) {
+    .modal-redes {
+        width: 100%;
+    }
+    
+    .flotante-redes-btn {
+        bottom: 80px;
+        right: 15px;
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+    
+    .redes-item {
+        padding: 0.8rem;
+    }
+}
+body.formulario-body {
+    background: var(--clr-main);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+.formulario-container {
+    background: linear-gradient(135deg, var(--clr-main), var(--clr-main-light));
+    padding: 3rem;
+    border-radius: 2rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    width: 100%;
+    max-width: 400px;
+    margin: 2rem;
+}
+
+.formulario-container h2 {
+    color: var(--clr-white);
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+}
+
+.formulario-container input,
+.formulario-container textarea {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: none;
+    border-radius: 1rem;
+    font-size: 1rem;
+    background: var(--clr-white);
+    color: var(--clr-main);
+}
+
+.formulario-container input:focus,
+.formulario-container textarea:focus {
+    outline: 3px solid var(--clr-main-light);
+}
+
+.btn-enviar {
+    background: var(--clr-white);
+    color: var(--clr-main);
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.3s;
+    text-transform: uppercase;
+}
+
+.btn-enviar:hover {
+    background: var(--clr-main);
+    color: var(--clr-white);
+    transform: scale(1.05);
+}
+
+/* NUEVOS ESTILOS PARA LAS SECCIONES INFORMATIVAS */
+.info-contacto, .frase-motivadora, .aviso-privacidad, .consecuencias {
+    background: rgba(157, 30, 43, 0.2);
+    padding: 1rem;
+    border-radius: 1rem;
+    margin: 1rem 0;
+    border-left: 4px solid var(--clr-main-light);
+}
+
+.info-contacto h3 {
+    color: var(--clr-white);
+    margin-bottom: 0.5rem;
+}
+
+.info-contacto ul, .consecuencias ul {
+    margin: 0.5rem 0;
+    padding-left: 1rem;
+}
+
+.info-contacto li, .consecuencias li {
+    color: var(--clr-white);
+    font-size: 0.9rem;
+    margin: 0.3rem 0;
+}
+
+.frase-motivadora p {
+    color: var(--clr-white);
+    text-align: center;
+    font-style: italic;
+    margin: 0;
+}
+
+.aviso-privacidad p, .consecuencias p {
+    color: var(--clr-white);
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.aviso-input {
+    color: var(--clr-main);
+    font-size: 0.8rem;
+    display: block;
+    margin: -0.5rem 0 1rem 0.5rem;
+    font-weight: 500;
+}
+aside header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+    padding: 1rem 0;
+}
+
+.imglogo {
+    width: 140px !important;
+    height: 140px !important;
+    border-radius: 15px;
+    display: block;
+    margin: 0 auto !important;
+    border: 3px solid var(--clr-white);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* 2. FOOTER POSICIONADO CORRECTAMENTE */
+aside {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+}
+
+footer {
+    margin-top: auto;
+    padding-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.8rem;
+}
+
+/* 3. RESPONSIVE MÓVIL SEGURO */
+@media screen and (max-width: 600px) {
+    .imglogo {
+        width: 120px !important;
+        height: 120px !important;
+    }
+    
+    footer {
+        padding-top: 1rem;
+    }
+}
+/* ========== CORRECCIÓN ESPECÍFICA MÓVIL ========== */
+@media screen and (max-width: 600px) {
+    /* 1. MENÚ QUE NO SE SALGA */
+    aside {
+        width: 280px !important;
+        padding: 1.5rem !important;
+        overflow-y: auto;
+    }
+    
+    .boton-menu {
+        width: 100% !important;
+        margin: 0 !important;
+        border-radius: 0.5rem !important;
+    }
+    
+    .boton-menu.active {
+        border-radius: 0.5rem !important;
+    }
+    
+    .boton-menu.active::before,
+    .boton-menu.active::after {
+        display: none !important;
+    }
+    
+    /* 2. FOOTER SIEMPRE VISIBLE */
+    aside {
+        justify-content: space-between;
+        height: 100vh;
+    }
+    
+    nav {
+        flex-grow: 1;
+    }
+    
+    .menu {
+        height: auto;
+        flex-grow: 1;
+    }
+    
+    footer {
+        flex-shrink: 0;
+        margin-top: auto;
+        padding: 1rem 0 0 0;
+        border-top: 1px solid rgba(255,255,255,0.3);
+    }
+    
+    /* 3. ELIMINAR ESPACIO VACÍO */
+    .boton-carrito {
+        margin-top: 0.5rem !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    /* 4. CONTENIDO MÁS COMPACTO */
+    .contenedor-bolivia {
+        margin-top: 0.5rem;
+    }
+    
+    .texto-footer {
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* ========== GARANTIZAR VISUALIZACIÓN INMEDIATA ========== */
+aside {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100vh !important;
+}
+
+nav {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.menu {
+    flex: 1 !important;
+}
+
+footer {
+    flex-shrink: 0 !important;
+}
+/* ========== REDUCIR ESPACIO AMARILLO EXCESIVO ========== */
+@media screen and (max-width: 600px) {
+    /* REDUCIR ESPACIO ENTRE BOTÓN CARRITO Y FOOTER */
+    .boton-carrito {
+        margin-top: 1rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    /* REDUCIR ESPACIO INTERNO DEL ASIDE */
+    aside {
+        padding: 1rem !important;
+        gap: 0.5rem;
+    }
+    
+    /* MENÚ MÁS COMPACTO */
+    .menu {
+        gap: 0.3rem;
+    }
+    
+    /* BOTONES MÁS COMPACTOS */
+    .boton-menu {
+        padding: 0.7rem !important;
+        margin: 0.1rem 0 !important;
+    }
+    
+    /* FOOTER MÁS CERCA */
+    footer {
+        margin-top: 0.5rem !important;
+        padding-top: 0.8rem !important;
+        gap: 0.3rem;
+    }
+    
+    /* LOGO DE BOLIVIA MÁS VISIBLE */
+    .contenedor-bolivia {
+        margin-top: 0.2rem;
+    }
+    
+    .texto-footer {
+        margin-bottom: 0.2rem;
+    }
+}
+
+/* ========== VERSIÓN EXTRA COMPACTA ========== */
+/* Si aún sigue muy separado, usa esta versión: */
+@media screen and (max-width: 600px) {
+    .boton-carrito {
+        margin-top: 0.5rem !important;
+        margin-bottom: 0.2rem !important;
+    }
+    
+    aside {
+        padding: 0.8rem !important;
+    }
+    
+    .menu {
+        gap: 0.2rem;
+    }
+    
+    .boton-menu {
+        padding: 0.6rem !important;
+    }
+    
+    footer {
+        margin-top: 0.3rem !important;
+        padding-top: 0.5rem !important;
+    }
+}
+/* ========== CORREGIR ESPACIO DEL BOTÓN CARRITO EN MÓVIL ========== */
+@media screen and (max-width: 600px) {
+    /* BOTÓN CARRITO COMO BOTÓN NORMAL, NO COMO LINK GRANDE */
+    .boton-carrito {
+        display: flex !important;
+        align-items: center !important;
+        gap: 1rem !important;
+        padding: 0.7rem !important;
+        margin: 0.5rem 0 !important;
+        text-decoration: none !important;
+        background: transparent !important;
+        border: none !important;
+        color: var(--clr-white) !important;
+        cursor: pointer !important;
+        width: 100% !important;
+        font-weight: 600 !important;
+        font-size: .85rem !important;
+    }
+    
+    /* ELIMINAR MARGEN EXTRA DEL BOTÓN CARRITO */
+    .boton-carrito {
+        margin-top: 0.5rem !important;
+        margin-bottom: 0.2rem !important;
+    }
+    
+    /* ASEGURAR QUE EL FOOTER ESTÉ VISIBLE */
+    aside {
+        padding-bottom: 1rem !important;
+    }
+    
+    footer {
+        margin-top: 0 !important;
+        padding-top: 0.5rem !important;
+    }
+}
+/* ========== LOGO VISIBLE INMEDIATAMENTE EN MÓVIL ========== */
+.logo-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.imglogo-mobile {
+    width: 45px;
+    height: 45px;
+    border-radius: 8px;
+    border: 2px solid var(--clr-white);
+    display: none; /* Oculto por defecto */
+}
+
+.header-mobile .logo {
+    color: var(--clr-white);
+    font-size: 1.1rem;
+    white-space: nowrap;
+}
+
+/* Mostrar logo en móvil */
+@media screen and (max-width: 600px) {
+    .imglogo-mobile {
+        display: block;
+    }
+    
+    .header-mobile {
+        padding: 0.8rem 1rem;
+        background: var(--clr-main);
+        border-bottom: 2px solid var(--clr-main-light);
+    }
+    
+    .logo-header {
+        flex: 1;
+    }
+}
+
+/* ========== BANDERA BOLIVIA EN HEADER MÓVIL ========== */
+.bandera-mobile {
+    display: none;
+}
+
+@media screen and (max-width: 600px) {
+    .bandera-mobile {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 0.3rem;
+    }
+    
+    .bandera-mobile img {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+    }
+    
+    .bandera-mobile span {
+        color: var(--clr-white);
+        font-size: 0.7rem;
+        font-family: Georgia, Times, 'Times New Roman', serif;
+    }
+}
+/* ========== BANDERA BOLIVIA EN HEADER MÓVIL ========== */
+.logo-contenedor {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.bandera-header {
+    display: none; /* Oculto en desktop */
+}
+
+@media screen and (max-width: 600px) {
+    .bandera-header {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        margin-top: 0.2rem;
+    }
+    
+    .bandera-header .imglogo-bolivia {
+        width: 16px;
+        height: 16px;
+        margin: 0;
+    }
+    
+    .pais-header {
+        color: var(--clr-white);
+        font-size: 0.7rem;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        white-space: nowrap;
+    }
+    
+    .header-mobile .logo {
+        font-size: 1rem;
+        line-height: 1.2;
+    }
+}
+/* ========== HEADER MÓVIL MEJORADO ========== */
+.header-contenedor-mobile {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex: 1;
+}
+
+.logo-img-mobile {
+    display: none;
+}
+
+.texto-header-mobile {
+    display: flex;
+    flex-direction: column;
+}
+
+.ubicacion-mobile {
+    display: none;
+}
+
+/* SOLO EN MÓVIL */
+@media screen and (max-width: 600px) {
+    .logo-img-mobile {
+        display: block;
+        width: 45px;
+        height: 45px;
+        border-radius: 10px;
+        border: 2px solid var(--clr-white);
+    }
+    
+    .ubicacion-mobile {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        margin-top: 0.2rem;
+    }
+    
+    .bandera-mobile {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        border: 1px solid var(--clr-white);
+    }
+    
+    .ciudad-mobile {
+        color: var(--clr-main-light);
+        font-size: 0.7rem;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-weight: bold;
+        white-space: nowrap;
+    }
+    
+    .header-mobile .logo {
+        font-size: 1rem;
+        color: var(--clr-white);
+        line-height: 1.1;
+    }
+    
+    .header-mobile {
+        padding: 0.8rem 1rem;
+        background: var(--clr-main);
+        border-bottom: 2px solid var(--clr-main-light);
+    }
+}

@@ -1,0 +1,486 @@
+<!DOCTYPE html> 
+<html lang="es"> 
+<head> 
+    <meta charset="UTF-8"> 
+<meta http-equiv="Content-Security-Policy" 
+      content="default-src 'self';
+               script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline';
+               style-src 'self' https://cdn.jsdelivr.net 'unsafe-inline';
+               img-src 'self' data: https:;
+               connect-src 'self' https://api.emailjs.com;
+               font-src 'self' https:;">
+    <title>Crochet a Mano R&R</title>
+    <link rel="stylesheet" href="css/formulario.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <!-- INCLUIR SWEETALERT2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- INCLUIR EMAILJS -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+</head> 
+<body> 
+     <div class="formulario-header">
+        <div class="header-content">
+            <img class="imglogo" src="img/logo/logo.png">
+            <h1 class="logo">Crochet a Mano R&R</h1>
+        </div>
+    </div>
+
+    <form id="formularioCompra">
+        <div class="slide-form"> 
+      <h2>Formulario de Compra</h2> 
+
+<!-- IDEA 3 - TEXTO INFORMATIVO -->
+<div class="info-contacto">
+    <h3>Datos de Contacto</h3>
+    <p><b>Por favor ingresa tus datos reales para que podamos:</b></p>
+    <ul>
+        <li><i class="bi bi-check-circle"></i> Verificar tu pedido</li>
+        <li><i class="bi bi-check-circle"></i> Contactarte en caso de personalizaciones</li>
+        <li><i class="bi bi-check-circle"></i>  Coordinar la entrega de tu compra</li>
+    </ul>
+</div>
+
+<!-- IDEA 6 - FRASE MOTIVADORA -->
+<div class="frase-motivadora">
+    <p>Ayúdanos poniendo datos correctos para una entrega exitosa.</p>
+</div>
+<div class="aviso-privacidad">
+    <p><i class="bi bi-lock-fill"></i> <strong>Tus datos están seguros</strong><br>
+    Solo los usaremos para procesar tu pedido. No compartiremos tu información con terceros.</p>
+</div>
+
+<!-- IDEA 5 - CONSECUENCIAS -->
+<div class="consecuencias">
+    <p><i class="bi bi-exclamation-triangle-fill"></i>  <strong>Importante:</strong> Si los datos son incorrectos, no podremos:</p>
+    <ul>
+        <li><i class="bi bi-exclamation-triangle"></i>  Confirmar tu pedido</li>
+        <li><i class="bi bi-exclamation-triangle"></i> Hacer la entrega exitosamente</li>
+    </ul>
+</div>
+
+<input type="text" name="nombre" required placeholder="Ej: María González Pérez">
+<small class="aviso-input"><i class="bi bi-emoji-smile"></i> Por favor usa tu nombre real, no apodos</small>
+
+<input type="email" name="correo" required placeholder="Ej: maria@gmail.com">
+<small class="aviso-input"><i class="bi bi-emoji-smile"></i> Verifica que tu correo esté bien escrito</small>
+
+<textarea name="comentario" cols="30" rows="5" placeholder="Comentarios (opcional)"></textarea>
+
+            <input type="hidden" name="productos" id="productosCarrito">
+            <input type="hidden" name="total" id="totalPedido">
+
+            <button type="submit" class="pago">Enviar</button>
+        </div> 
+    </form>
+    
+    <div class="formulario-footer">
+        <div class="footer-content">
+            <p class="texto-footer">© 2025 Crochet a Mano R&R</p>
+            <div class="contenedor-bolivia">
+                <img class="imglogo-bolivia" src="img/logo/bolivia.png">
+                <p class="lugar">EL ALTO - BOLIVIA</p>
+            </div>
+        </div>
+    </div>
+
+<script>
+    // INICIALIZAR EMAILJS CON TUS CLAVES
+    (function() {
+        emailjs.init("i_79z2Cq9xeuslb-c");
+    })();
+
+// ==================== SISTEMA DE SEGURIDAD FORMULARIO ====================
+const SEGURIDAD_FORM = {
+    MAX_INTENTOS: 3,
+    TIEMPO_ESPERA: 30000, // 30 segundos
+    intentos: 0,
+    ultimoEnvio: 0
+};
+
+// VALIDAR PRODUCTOS ANTES DE ENVIAR
+function validarProductosFormulario() {
+    const productos = JSON.parse(localStorage.getItem('productos-en-carrito')) || [];
+    
+    // Verificar que hay productos
+    if (productos.length === 0) {
+        Swal.fire({
+            title: 'Carrito vacío',
+            text: 'Agrega productos al carrito antes de enviar el formulario',
+            icon: 'warning',
+            confirmButtonText: 'Entendido'
+        });
+        return false;
+    }
+    
+    // Validar cada producto
+    for (let producto of productos) {
+        // Precio mínimo
+        if (producto.precio < 10) {
+            console.error("🚨 Precio manipulado:", producto);
+            Swal.fire({
+                title: 'Error de seguridad',
+                text: 'Se detectaron precios inválidos. Recargando página...',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            });
+            setTimeout(() => location.reload(), 2000);
+            return false;
+        }
+        
+        // Cantidad razonable
+        if (producto.cantidad < 1 || producto.cantidad > 10) {
+            console.error("🚨 Cantidad inválida:", producto);
+            Swal.fire({
+                title: 'Error en cantidades',
+                text: 'Las cantidades de productos no son válidas',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            });
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+// VALIDAR FORMULARIO COMPLETO
+function validarFormularioCompleto(nombre, correo) {
+    // Validar nombre (mínimo 3 caracteres)
+    if (nombre.trim().length < 3) {
+        Swal.fire({
+            title: 'Nombre muy corto',
+            text: 'Por favor ingresa tu nombre completo',
+            icon: 'warning',
+            confirmButtonText: 'Entendido'
+        });
+        return false;
+    }
+    
+    // Validar email básico
+    if (!correo.includes('@') || !correo.includes('.')) {
+        Swal.fire({
+            title: 'Email inválido',
+            text: 'Por favor ingresa un email válido',
+            icon: 'warning',
+            confirmButtonText: 'Entendido'
+        });
+        return false;
+    }
+    
+    // Prevenir spam - máximo 3 intentos
+    SEGURIDAD_FORM.intentos++;
+    if (SEGURIDAD_FORM.intentos > SEGURIDAD_FORM.MAX_INTENTOS) {
+        Swal.fire({
+            title: 'Demasiados intentos',
+            text: 'Por favor espera 30 segundos antes de intentar nuevamente',
+            icon: 'error',
+            confirmButtonText: 'Entendido'
+        });
+        return false;
+    }
+    
+    // Prevenir envíos rápidos (mínimo 5 segundos entre envíos)
+    const ahora = Date.now();
+    if (ahora - SEGURIDAD_FORM.ultimoEnvio < 5000) {
+        Swal.fire({
+            title: 'Espera un momento',
+            text: 'Por favor espera 5 segundos entre envíos',
+            icon: 'warning',
+            confirmButtonText: 'Entendido'
+        });
+        return false;
+    }
+    SEGURIDAD_FORM.ultimoEnvio = ahora;
+    
+    return true;
+}
+
+// CARGAR PRODUCTOS AL INICIAR (CON VALIDACIÓN)
+document.addEventListener('DOMContentLoaded', function() {
+    const productos = JSON.parse(localStorage.getItem('productos-en-carrito')) || [];
+    
+    // Validar productos al cargar
+    const productosValidados = productos.filter(producto => 
+        producto.precio >= 10 && 
+        producto.cantidad >= 1 && 
+        producto.cantidad <= 10
+    );
+    
+    // Si hay diferencias, actualizar
+    if (productosValidados.length !== productos.length) {
+        localStorage.setItem('productos-en-carrito', JSON.stringify(productosValidados));
+        Swal.fire({
+            title: 'Carrito actualizado',
+            text: 'Se corrigieron algunos productos inválidos',
+            icon: 'info',
+            confirmButtonText: 'Entendido'
+        });
+    }
+    
+    document.getElementById('productosCarrito').value = JSON.stringify(productosValidados);
+    const total = productosValidados.reduce((sum, p) => sum + (p.precio * p.cantidad), 0);
+    document.getElementById('totalPedido').value = `Bs. ${total}`;
+});
+
+// ENVÍO SEGURO DEL FORMULARIO
+document.getElementById('formularioCompra').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const nombre = document.querySelector('input[name="nombre"]').value;
+    const correo = document.querySelector('input[name="correo"]').value;
+    const comentario = document.querySelector('textarea[name="comentario"]').value;
+    const productos = JSON.parse(localStorage.getItem('productos-en-carrito')) || [];
+    const total = productos.reduce((sum, p) => sum + (p.precio * p.cantidad), 0);
+    
+    // VALIDACIONES DE SEGURIDAD
+    if (!validarProductosFormulario()) return;
+    if (!validarFormularioCompleto(nombre, correo)) return;
+    
+    // MOSTRAR CONFIRMACIÓN ANTES DE ENVIAR
+    Swal.fire({
+        title: '¿Confirmar pedido?',
+        html: `
+            <div style="text-align: left;">
+                <p><strong>Productos:</strong></p>
+                <ul>
+                    ${productos.map(p => `<li>${p.titulo} (x${p.cantidad}) - Bs. ${p.precio * p.cantidad}</li>`).join('')}
+                </ul>
+                <p><strong>Total: Bs. ${total}</strong></p>
+            </div>
+        `,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, confirmar',
+        cancelButtonText: 'Revisar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            enviarPedido(nombre, correo, comentario, productos, total);
+        }
+    });
+});
+
+S
+// FUNCIÓN PARA ENVIAR PEDIDO CON EMAILJS - VERSIÓN CORREGIDA
+function enviarPedido(nombre, correo, comentario, productos, total) {
+    console.log("📧 Iniciando envío con EmailJS...");
+    
+    // Crear texto simple para los productos (FORMATO MÁS SIMPLE)
+    const productosTexto = productos.map(p => 
+        `${p.titulo} (x${p.cantidad}) - Bs. ${p.precio * p.cantidad}`
+    ).join(' | ');
+
+    const templateParams = {
+        from_name: nombre,  // Variable estándar de EmailJS
+        reply_to: correo,   // Variable estándar de EmailJS  
+        message: comentario || 'Sin comentarios',
+        productos: productosTexto,
+        total: `Bs. ${total}`,
+        fecha: new Date().toLocaleString()
+    };
+
+    console.log("📦 Datos para email:", templateParams);
+
+    // ENVIAR CON EMAILJS
+    emailjs.send('service_hxp57im', 'template_o357tq5', templateParams)
+        .then(function(response) {
+            console.log('✅ Email enviado EXITOSAMENTE:', response);
+            
+            // GUARDAR PEDIDO EN LOCALSTORAGE
+            const nuevoPedido = {
+                nombre: nombre,
+                correo: correo, 
+                comentario: comentario,
+                productos: productos,
+                total: total,
+                fecha: new Date().toLocaleString(),
+                estado: 'pendiente'
+            };
+            
+            const todosLosPedidos = JSON.parse(localStorage.getItem('todos-los-pedidos')) || [];
+            todosLosPedidos.push(nuevoPedido);
+            localStorage.setItem('todos-los-pedidos', JSON.stringify(todosLosPedidos));
+            
+            // LIMPIAR CARRITO
+            localStorage.removeItem('productos-en-carrito');
+            
+            // MOSTRAR CONFIRMACIÓN
+            Swal.fire({
+                title: '¡PEDIDO CONFIRMADO!',
+                html: `
+                    <div style="text-align: left;">
+                        <p><strong>Gracias ${nombre}</strong></p>
+                        <p>📧 <strong>Email enviado exitosamente</strong></p>
+                        <p>Te contactaremos pronto al correo:</p>
+                        <p><strong>${correo}</strong></p>
+                        <p>Total del pedido: <strong>Bs. ${total}</strong></p>
+                    </div>
+                `,
+                icon: 'success',
+                confirmButtonText: 'Continuar al pago'
+            }).then(() => {
+                window.location.href = 'pago.html';
+            });
+        })
+        .catch(function(error) {
+            console.error('❌ Error enviando email:', error);
+            console.log('Detalles del error:', error.text || error);
+            
+            // GUARDAR PEDIDO LOCALMENTE AUNQUE FALLE EL EMAIL
+            const nuevoPedido = {
+                nombre: nombre,
+                correo: correo, 
+                comentario: comentario,
+                productos: productos,
+                total: total,
+                fecha: new Date().toLocaleString(),
+                estado: 'pendiente - email falló'
+            };
+            
+            const todosLosPedidos = JSON.parse(localStorage.getItem('todos-los-pedidos')) || [];
+            todosLosPedidos.push(nuevoPedido);
+            localStorage.setItem('todos-los-pedidos', JSON.stringify(todosLosPedidos));
+            localStorage.removeItem('productos-en-carrito');
+            
+            Swal.fire({
+                title: 'Pedido guardado',
+                html: `
+                    <div style="text-align: left;">
+                        <p><strong>Gracias ${nombre}</strong></p>
+                        <p>⚠️ <strong>El pedido se guardó</strong> pero hubo un error al enviar el email.</p>
+                        <p>Contactaremos al cliente manualmente.</p>
+                        <p>Total del pedido: <strong>Bs. ${total}</strong></p>
+                    </div>
+                `,
+                icon: 'warning',
+                confirmButtonText: 'Continuar al pago'
+            }).then(() => {
+                window.location.href = 'pago.html';
+            });
+        });
+}
+</script>
+
+    <!-- BOTÓN PARA ABRIR MODAL PAGO -->
+    <button class="flotante-pago-btn" onclick="abrirModalPago()">
+        <i class="bi bi-cash-coin"></i>
+    </button>
+
+    <!-- BOTÓN REDES SOCIALES FLOTANTE -->
+    <button class="flotante-redes-btn" onclick="abrirModalRedes()">
+        <i class="bi bi-globe2"></i>
+    </button>
+
+    <!-- MODAL MÉTODOS DE PAGO -->
+    <div id="modalPago" class="modal-pago">
+        <div class="modal-contenido">
+            <button class="cerrar-modal" onclick="cerrarModalPago()">×</button>
+            <h3>Métodos de Pago</h3>
+            <div class="metodo-pago-item">
+                  <img class="imglogo-pagos" src="img/logo/yape.png" >
+                <div class="metodo-info">
+                    <strong>Yape</strong>
+                    <p>Pago rápido con QR</p>
+                    <small>Escanea el código en la página de pago</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL REDES SOCIALES -->
+    <div id="modalRedes" class="modal-redes">
+        <div class="modal-contenido">
+            <button class="cerrar-modal" onclick="cerrarModalRedes()">×</button>
+            <h3>Síguenos en nuestras Redes</h3>
+            
+            <div class="redes-item">
+                <img class="imglogo-pagos" src="img/logo/facebook.png" >
+                <div class="redes-info">
+                    <strong>Facebook</strong>
+                    <p>Crochet a Mano R&R</p>
+                    <a href="https://www.facebook.com/profile.php?id=61582311064596" target="_blank" class="link-redes">Visitar página</a>
+                </div>
+            </div>
+            
+            <div class="redes-item">
+                  <img class="imglogo-pagos" src="img/logo/instagram.png" >
+                <div class="redes-info">
+                    <strong>Instagram</strong>
+                    <p>@crochet.a.mano.rr</p>
+                    <a href="https://www.instagram.com/crochet.a.mano.rr?igsh=MWs1bHM1bmhvcWxqYg==" target="_blank" class="link-redes">Seguir cuenta</a>
+                </div>
+            </div>
+            
+            <div class="redes-item">
+              <img class="imglogo-pagos" src="img/logo/tiktok.png" >
+                <div class="redes-info">
+                    <strong>TikTok</strong>
+                    <p>@crochet.a.mano.rr</p>
+                    <a href="https://www.tiktok.com/@crochet.a.mano.rr?_t=ZM-90aJRM94tTv&_r=1" target="_blank" class="link-redes">Ver videos</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+// FUNCIONES MEJORADAS - EVITAR CONFLICTOS
+function abrirModalPago() {
+    console.log("Abriendo modal pago...");
+    const modal = document.getElementById('modalPago');
+    if (modal) {
+        modal.classList.add('mostrar');
+        console.log("Modal pago abierto");
+    }
+}
+
+function cerrarModalPago() {
+    const modal = document.getElementById('modalPago');
+    if (modal) {
+        modal.classList.remove('mostrar');
+    }
+}
+
+function abrirModalRedes() {
+    console.log("Abriendo modal redes...");
+    const modal = document.getElementById('modalRedes');
+    if (modal) {
+        modal.classList.add('mostrar');
+        console.log("Modal redes abierto");
+    }
+}
+
+function cerrarModalRedes() {
+    const modal = document.getElementById('modalRedes');
+    if (modal) {
+        modal.classList.remove('mostrar');
+    }
+}
+
+// INICIALIZAR CUANDO LA PÁGINA CARGA
+document.addEventListener('DOMContentLoaded', function() {
+    console.log("Página cargada - inicializando modales");
+    
+    // Modal Pago
+    const modalPago = document.getElementById('modalPago');
+    if (modalPago) {
+        modalPago.addEventListener('click', function(e) {
+            if (e.target === this) {
+                cerrarModalPago();
+            }
+        });
+    }
+    
+    // Modal Redes
+    const modalRedes = document.getElementById('modalRedes');
+    if (modalRedes) {
+        modalRedes.addEventListener('click', function(e) {
+            if (e.target === this) {
+                cerrarModalRedes();
+            }
+        });
+    }
+    
+    console.log("Modales inicializados correctamente");
+});
+</script>
+</body> 
+</html>
