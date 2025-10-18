@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruta del Saber</title>
+    <style>
+        :root {
+            --primary: #6a11cb;
+            --secondary: #2575fc;
+            --accent: #ff9a00;
+            --success: #28a745;
+            --danger: #dc3545;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--dark), #16213e);
+            color: var(--light);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .screen {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            display: none;
+        }
+        
+        .screen.active {
+            display: block;
+        }
+        
+        .graffiti-title {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #ff5f1f, #ff8c00, #ffdd00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(255, 95, 31, 0.5);
+            font-weight: 900;
+            font-style: italic;
+            text-transform: uppercase;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+            margin: 10px 0;
+        }
+        
+        .start-btn {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
+        }
+        
+        .start-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(106, 17, 203, 0.6);
+        }
+        
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 15px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-label {
+            display: block;
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-bottom: 5px;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+        
+        .timer-container {
+            text-align: center;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 15px;
+        }
+        
+        .timer {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(to right, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 5px;
+        }
+        
+        .timer-label {
+            color: #aaa;
+            font-size: 1rem;
+        }
+        
+        .question-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .question-category {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+        
+        .question-text {
+            font-size: 1.3rem;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+        
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .option-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .option-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .option-card.selected {
+            background: rgba(106, 17, 203, 0.2);
+            border-color: var(--primary);
+        }
+        
+        .option-card.correct {
+            background: rgba(40, 167, 69, 0.3);
+            border-color: var(--success);
+        }
+        
+        .option-card.incorrect {
+            background: rgba(220, 53, 69, 0.3);
+            border-color: var(--danger);
+        }
+        
+        .option-letter {
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .option-text {
+            flex: 1;
+            font-size: 1rem;
+        }
+        
+        .feedback-message {
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            display: none;
+        }
+        
+        .feedback-message.correct {
+            background: rgba(40, 167, 69, 0.2);
+            color: var(--success);
+            border: 1px solid rgba(40, 167, 69, 0.3);
+        }
+        
+        .feedback-message.incorrect {
+            background: rgba(220, 53, 69, 0.2);
+            color: var(--danger);
+            border: 1px solid rgba(220, 53, 69, 0.3);
+        }
+        
+        .level-indicator {
+            text-align: center;
+            font-size: 1.2rem;
+            margin: 10px 0;
+            color: var(--accent);
+        }
+        
+        .results-container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 20px;
+        }
+        
+        .final-score {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin: 20px 0;
+        }
+        
+        .advice-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .game-rules {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .game-rules h3 {
+            color: var(--accent);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .game-rules ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .game-rules li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+        
+        .game-rules li:last-child {
+            border-bottom: none;
+        }
+        
+        .game-rules strong {
+            color: var(--accent);
+        }
+        
+        .explanation-box {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid var(--accent);
+        }
+        
+        @media (max-width: 768px) {
+            .graffiti-title {
+                font-size: 2.2rem;
+            }
+            
+            .question-text {
+                font-size: 1.1rem;
+            }
+            
+            .stats-bar {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .timer {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Pantalla de Inicio -->
+    <div class="screen active" id="start-screen">
+        <h1 class="graffiti-title">Ruta del Saber</h1>
+        <p class="subtitle">Domina el conocimiento</p>
+        
+        <div class="welcome-message">
+            <h2 style="text-align: center; margin-bottom: 20px; color: var(--accent);">¡Prepárate para el desafío!</h2>
+            <p style="text-align: center; margin-bottom: 15px; line-height: 1.6;">Demuestra lo que sabes en matemáticas, ciencias, historia y más.</p>
+            
+            <div class="game-rules">
+                <h3>🏆 Reglas del Juego</h3>
+                <ul>
+                    <li><strong>⏱️ Tiempo límite:</strong> 30 segundos por pregunta</li>
+                    <li><strong>🎯 Sistema de niveles:</strong> 5 niveles progresivos</li>
+                    <li><strong>✅ Si aciertas:</strong> Avanzas a la siguiente pregunta</li>
+                    <li><strong>❌ Si fallas:</strong> Te quedas en la misma pregunta</li>
+                    <li><strong>🚀 Completa cada nivel:</strong> Para desbloquear el siguiente</li>
+                    <li><strong>💡 Retroalimentación:</strong> Verás la respuesta correcta si fallas</li>
+                </ul>
+            </div>
+            
+            <div class="explanation-box">
+                <h4>📖 ¿Cómo jugar?</h4>
+                <p>1. Lee cada pregunta cuidadosamente</p>
+                <p>2. Selecciona la respuesta que creas correcta</p>
+                <p>3. Confirma tu respuesta antes de que se acabe el tiempo</p>
+                <p>4. Si aciertas, pasarás a la siguiente pregunta</p>
+                <p>5. Si fallas, verás la respuesta correcta y podrás intentarlo de nuevo</p>
+                <p>6. ¡Completa todos los niveles para convertirte en un Maestro del Saber!</p>
+            </div>
+        </div>
+        
+        <button class="btn start-btn" id="start-btn">
+            <span>🎯</span> Comenzar Juego
+        </button>
+    </div>
+    <!-- Pantalla del Juego -->
+<div class="screen" id="game-screen">
+    <h1 class="graffiti-title">Ruta del Saber</h1>
+    
+    <div class="stats-bar">
+        <div class="stat">
+            <span class="stat-label">Nivel</span>
+            <span class="stat-value" id="level">1</span>
+        </div>
+        <div class="stat">
+            <span class="stat-label">Pregunta</span>
+            <span class="stat-value" id="question-count">1/5</span>
+        </div>
+    </div>
+    
+    <div class="timer-container">
+        <div class="timer" id="timer">30</div>
+        <div class="timer-label">segundos restantes</div>
+    </div>
+    
+    <div class="level-indicator">
+        Nivel <span id="current-level">1</span> - <span id="level-name">Principiante</span>
+    </div>
+    
+    <div class="question-container">
+        <div class="question-category" id="category">Matemáticas</div>
+        <p class="question-text" id="question-text">¿Cuál es el valor de π (pi) redondeado a dos decimales?</p>
+    </div>
+    
+    <div class="options-container" id="options-container">
+        <!-- Las opciones se generarán con JavaScript -->
+    </div>
+    
+    <div class="feedback-message" id="feedback-message">
+        <!-- Mensaje de retroalimentación -->
+    </div>
+    
+    <button class="btn submit-btn" id="submit-btn" disabled style="background: linear-gradient(to right, var(--primary), var(--secondary)); color: white;">
+        <span>✅</span> Confirmar Respuesta
+    </button>
+</div>
+
+<!-- Pantalla de Resultados -->
+<div class="screen" id="results-screen">
+    <h1 class="graffiti-title" id="results-title">¡Nivel Completado!</h1>
+    
+    <div class="results-container">
+        <div class="final-score" id="final-level">Nivel 1</div>
+        
+        <div class="advice-section">
+            <h3>💡 Reflexión:</h3>
+            <p id="advice-text">Sigue practicando para subir de nivel.</p>
+        </div>
+        
+        <p style="margin: 20px 0; color: #aaa;" id="encouragement-text">¡Cada nivel superado te acerca a dominar el conocimiento!</p>
+        
+        <button class="btn start-btn" id="next-level-btn">
+            <span>🚀</span> Siguiente Nivel
+        </button>
+        
+        <button class="btn" id="menu-btn" style="background: rgba(255, 255, 255, 0.1); color: var(--light);">
+            <span>🏠</span> Volver al Menú
+        </button>
+    </div>
+</div>
+    <script>
+    // Variables del juego
+    let currentLevel = 1;
+    let currentQuestionIndex = 0;
+    let selectedOption = null;
+    let timeLeft = 30;
+    let timerInterval;
+    let isAnswerSubmitted = false;
+    
+    // Elementos del DOM
+    const startScreen = document.getElementById('start-screen');
+    const gameScreen = document.getElementById('game-screen');
+    const resultsScreen = document.getElementById('results-screen');
+    const startBtn = document.getElementById('start-btn');
+    const levelElement = document.getElementById('level');
+    const questionCountElement = document.getElementById('question-count');
+    const currentLevelElement = document.getElementById('current-level');
+    const levelNameElement = document.getElementById('level-name');
+    const categoryElement = document.getElementById('category');
+    const questionTextElement = document.getElementById('question-text');
+    const optionsContainer = document.getElementById('options-container');
+    const submitBtn = document.getElementById('submit-btn');
+    const feedbackMessage = document.getElementById('feedback-message');
+    const timerElement = document.getElementById('timer');
+    const finalLevelElement = document.getElementById('final-level');
+    const resultsTitle = document.getElementById('results-title');
+    const adviceTextElement = document.getElementById('advice-text');
+    const encouragementTextElement = document.getElementById('encouragement-text');
+    const nextLevelBtn = document.getElementById('next-level-btn');
+    const menuBtn = document.getElementById('menu-btn');
+    
+    // Nombres de niveles
+    const levelNames = {
+        1: "Principiante",
+        2: "Aprendiz",
+        3: "Intermedio", 
+        4: "Avanzado",
+        5: "Experto",
+        6: "Maestro del Saber"
+    };
+    
+    // Preguntas organizadas por nivel (5 preguntas por nivel)
+    const questionsByLevel = {
+        1: [
+            {
+                category: "Matemáticas",
+                text: "¿Cuál es el resultado de 7 × 8 + 15 ÷ 3?",
+                options: [
+                    { text: "61", correct: true },
+                    { text: "59", correct: false },
+                    { text: "63", correct: false },
+                    { text: "65", correct: false }
+                ]
+            },
+            {
+                category: "Ciencias",
+                text: "¿Qué planeta es conocido como el 'planeta rojo'?",
+                options: [
+                    { text: "Venus", correct: false },
+                    { text: "Marte", correct: true },
+                    { text: "Júpiter", correct: false },
+                    { text: "Saturno", correct: false }
+                ]
+            },
+            {
+                category: "Historia",
+                text: "¿En qué año el hombre llegó a la Luna por primera vez?",
+                options: [
+                    { text: "1965", correct: false },
+                    { text: "1969", correct: true },
+                    { text: "1972", correct: false },
+                    { text: "1958", correct: false }
+                ]
+            },
+            {
+                category: "Geografía",
+                text: "¿Cuál es el océano más grande del mundo?",
+                options: [
+                    { text: "Atlántico", correct: false },
+                    { text: "Índico", correct: false },
+                    { text: "Pacífico", correct: true },
+                    { text: "Ártico", correct: false }
+                ]
+            },
+            {
+                category: "Literatura",
+                text: "¿Quién escribió 'Cien años de soledad'?",
+                options: [
+                    { text: "Pablo Neruda", correct: false },
+                    { text: "Julio Cortázar", correct: false },
+                    { text: "Gabriel García Márquez", correct: true },
+                    { text: "Mario Vargas Llosa", correct: false }
+                ]
+            }
+        ],
+        2: [
+            {
+                category: "Matemáticas",
+                text: "¿Cuál es el valor de x en la ecuación: 3x - 7 = 14?",
+                options: [
+                    { text: "5", correct: false },
+                    { text: "6", correct: false },
+                    { text: "7", correct: true },
+                    { text: "8", correct: false }
+                ]
+            },
+            {
+                category: "Física",
+                text: "¿Qué ley establece que 'a toda acción le corresponde una reacción igual y opuesta'?",
+                options: [
+                    { text: "Primera ley de Newton", correct: false },
+                    { text: "Segunda ley de Newton", correct: false },
+                    { text: "Tercera ley de Newton", correct: true },
+                    { text: "Ley de la gravitación universal", correct: false }
+                ]
+            },
+            {
+                category: "Química",
+                text: "¿Cuál es el elemento químico más abundante en el universo?",
+                options: [
+                    { text: "Oxígeno", correct: false },
+                    { text: "Carbono", correct: false },
+                    { text: "Hidrógeno", correct: true },
+                    { text: "Helio", correct: false }
+                ]
+            },
+            {
+                category: "Biología",
+                text: "¿Qué científico es conocido por su teoría de la evolución?",
+                options: [
+                    { text: "Gregor Mendel", correct: false },
+                    { text: "Charles Darwin", correct: true },
+                    { text: "Louis Pasteur", correct: false },
+                    { text: "Alexander Fleming", correct: false }
+                ]
+            },
+            {
+                category: "Historia Universal",
+                text: "¿En qué siglo comenzó la Primera Guerra Mundial?",
+                options: [
+                    { text: "XIX", correct: false },
+                    { text: "XX", correct: true },
+                    { text: "XVIII", correct: false },
+                    { text: "XXI", correct: false }
+                ]
+            }
+        ],
+        3: [
+            {
+                category: "Matemáticas Avanzadas",
+                text: "¿Cuál es la derivada de f(x) = 3x² + 2x - 5?",
+                options: [
+                    { text: "6x + 2", correct: true },
+                    { text: "3x + 2", correct: false },
+                    { text: "6x - 5", correct: false },
+                    { text: "3x² + 2", correct: false }
+                ]
+            },
+            {
+                category: "Física Cuántica",
+                text: "¿Qué partícula subatómica tiene carga positiva?",
+                options: [
+                    { text: "Electrón", correct: false },
+                    { text: "Protón", correct: true },
+                    { text: "Neutrón", correct: false },
+                    { text: "Fotón", correct: false }
+                ]
+            },
+            {
+                category: "Anatomía",
+                text: "¿Cuál es el hueso más largo del cuerpo humano?",
+                options: [
+                    { text: "Tibia", correct: false },
+                    { text: "Fémur", correct: true },
+                    { text: "Húmero", correct: false },
+                    { text: "Radio", correct: false }
+                ]
+            },
+            {
+                category: "Literatura Universal",
+                text: "¿Quién escribió 'Don Quijote de la Mancha'?",
+                options: [
+                    { text: "Miguel de Cervantes", correct: true },
+                    { text: "Federico García Lorca", correct: false },
+                    { text: "Lope de Vega", correct: false },
+                    { text: "Calderón de la Barca", correct: false }
+                ]
+            },
+            {
+                category: "Geografía Mundial",
+                text: "¿Cuál es el país más grande de América del Sur?",
+                options: [
+                    { text: "Argentina", correct: false },
+                    { text: "Brasil", correct: true },
+                    { text: "Perú", correct: false },
+                    { text: "Colombia", correct: false }
+                ]
+            }
+        ],
+        4: [
+            {
+                category: "Matemáticas Superiores",
+                text: "¿Cuál es el resultado de la integral ∫(2x + 3) dx?",
+                options: [
+                    { text: "x² + 3x + C", correct: true },
+                    { text: "2x² + 3x + C", correct: false },
+                    { text: "x² + 3", correct: false },
+                    { text: "2x + 3 + C", correct: false }
+                ]
+            },
+            {
+                category: "Física Avanzada",
+                text: "¿Qué teoría unifica la relatividad general con la mecánica cuántica?",
+                options: [
+                    { text: "Teoría de cuerdas", correct: true },
+                    { text: "Teoría del todo", correct: false },
+                    { text: "Teoría de la relatividad", correct: false },
+                    { text: "Teoría cuántica de campos", correct: false }
+                ]
+            },
+            {
+                category: "Química Orgánica",
+                text: "¿Cuál es la fórmula molecular del benceno?",
+                options: [
+                    { text: "C6H6", correct: true },
+                    { text: "C6H12", correct: false },
+                    { text: "C7H8", correct: false },
+                    { text: "C8H10", correct: false }
+                ]
+            },
+            {
+                category: "Literatura Clásica",
+                text: "¿Quién escribió 'La Odisea'?",
+                options: [
+                    { text: "Homero", correct: true },
+                    { text: "Virgilio", correct: false },
+                    { text: "Sófocles", correct: false },
+                    { text: "Heródoto", correct: false }
+                ]
+            },
+            {
+                category: "Filosofía",
+                text: "¿Qué filósofo dijo 'Solo sé que no sé nada'?",
+                options: [
+                    { text: "Sócrates", correct: true },
+                    { text: "Platón", correct: false },
+                    { text: "Aristóteles", correct: false },
+                    { text: "Descartes", correct: false }
+                ]
+            }
+        ],
+        5: [
+            {
+                category: "Cálculo Diferencial",
+                text: "¿Cuál es la derivada de ln(x)?",
+                options: [
+                    { text: "1/x", correct: true },
+                    { text: "x", correct: false },
+                    { text: "e^x", correct: false },
+                    { text: "1", correct: false }
+                ]
+            },
+            {
+                category: "Astrofísica",
+                text: "¿Qué es un agujero negro?",
+                options: [
+                    { text: "Una región del espacio con gravedad tan intensa que nada puede escapar", correct: true },
+                    { text: "Un planeta sin luz", correct: false },
+                    { text: "Una estrella muerta", correct: false },
+                    { text: "Un vacío en el espacio", correct: false }
+                ]
+            },
+            {
+                category: "Genética",
+                text: "¿Qué científico descubrió la estructura del ADN?",
+                options: [
+                    { text: "Watson y Crick", correct: true },
+                    { text: "Mendel", correct: false },
+                    { text: "Darwin", correct: false },
+                    { text: "Pasteur", correct: false }
+                ]
+            },
+            {
+                category: "Arte Renacentista",
+                text: "¿Quién pintó 'La última cena'?",
+                options: [
+                    { text: "Leonardo da Vinci", correct: true },
+                    { text: "Miguel Ángel", correct: false },
+                    { text: "Rafael", correct: false },
+                    { text: "Donatello", correct: false }
+                ]
+            },
+            {
+                category: "Economía Mundial",
+                text: "¿Qué país tiene la economía más grande del mundo?",
+                options: [
+                    { text: "Estados Unidos", correct: true },
+                    { text: "China", correct: false },
+                    { text: "Japón", correct: false },
+                    { text: "Alemania", correct: false }
+                ]
+            }
+        ]
+    };
+            // Mensajes reflexivos por nivel
+        const adviceByLevel = {
+            1: "El conocimiento comienza con la curiosidad. ¡Sigue explorando!",
+            2: "Cada respuesta correcta es un paso hacia la sabiduría. ¡Continúa tu camino!",
+            3: "Tu mente se expande con cada nuevo concepto aprendido. ¡Sigue desafiándote!",
+            4: "La perseverancia es la madre de todas las ciencias. ¡No te detengas!",
+            5: "Has demostrado ser un verdadero conocedor. ¡Eres inspiración para otros!"
+        };
+        
+        // Mensajes de ánimo por nivel
+        const encouragementByLevel = {
+            1: "¡Bien hecho! Estás construyendo una base sólida de conocimiento.",
+            2: "¡Excelente progreso! Tu dedicación está dando frutos.",
+            3: "¡Impresionante! Tu mente se está expandiendo notablemente.",
+            4: "¡Fantástico! Estás dominando múltiples áreas del saber.",
+            5: "¡Extraordinario! Has alcanzado un nivel de conocimiento excepcional."
+        };
+        
+        // Función para cambiar de pantalla
+        function showScreen(screen) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            screen.classList.add('active');
+        }
+        
+        // Función para iniciar el temporizador
+        function startTimer() {
+            timeLeft = 30;
+            timerElement.textContent = timeLeft;
+            clearInterval(timerInterval);
+            
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                timerElement.textContent = timeLeft;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    // Tiempo agotado - mostrar respuesta correcta
+                    if (!isAnswerSubmitted) {
+                        const questions = questionsByLevel[currentLevel];
+                        const question = questions[currentQuestionIndex];
+                        
+                        // Encontrar la respuesta correcta
+                        let correctIndex = -1;
+                        question.options.forEach((option, index) => {
+                            if (option.correct) correctIndex = index;
+                        });
+                        
+                        // Mostrar retroalimentación
+                        showAnswerFeedback(false, null, correctIndex);
+                        isAnswerSubmitted = true;
+                        
+                        // Deshabilitar el botón de enviar
+                        submitBtn.disabled = true;
+                        
+                        // Mensaje de tiempo agotado
+                        feedbackMessage.textContent = "⏰ Tiempo agotado. Esta es la respuesta correcta:";
+                        feedbackMessage.className = 'feedback-message incorrect';
+                        feedbackMessage.style.display = 'block';
+                    }
+                }
+            }, 1000);
+        }
+        
+        // Función para detener el temporizador
+        function stopTimer() {
+            clearInterval(timerInterval);
+        }
+        
+        // Función para iniciar el juego
+        function startGame() {
+            currentLevel = 1;
+            currentQuestionIndex = 0;
+            showScreen(gameScreen);
+            updateStats();
+            showQuestion();
+            startTimer();
+        }
+        
+        // Función para mostrar la pregunta actual
+        function showQuestion() {
+            const questions = questionsByLevel[currentLevel];
+            const question = questions[currentQuestionIndex];
+            
+            // Actualizar elementos de la interfaz
+            categoryElement.textContent = question.category;
+            questionTextElement.textContent = question.text;
+            questionCountElement.textContent = `${currentQuestionIndex + 1}/${questions.length}`;
+            currentLevelElement.textContent = currentLevel;
+            levelNameElement.textContent = levelNames[currentLevel];
+            levelElement.textContent = currentLevel;
+            
+            // Limpiar opciones anteriores
+            optionsContainer.innerHTML = '';
+            
+            // Crear nuevas opciones
+            const letters = ['A', 'B', 'C', 'D'];
+            question.options.forEach((option, index) => {
+                const optionCard = document.createElement('div');
+                optionCard.className = 'option-card';
+                optionCard.innerHTML = `
+                    <div class="option-letter">${letters[index]}</div>
+                    <div class="option-text">${option.text}</div>
+                `;
+                
+                optionCard.addEventListener('click', () => selectOption(optionCard, index));
+                optionsContainer.appendChild(optionCard);
+            });
+            
+            // Reiniciar selección
+            selectedOption = null;
+            submitBtn.disabled = true;
+            isAnswerSubmitted = false;
+            feedbackMessage.style.display = 'none';
+        }
+        
+        // Función para seleccionar una opción
+        function selectOption(optionCard, index) {
+            if (isAnswerSubmitted) return;
+            
+            // Deseleccionar todas las opciones
+            document.querySelectorAll('.option-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Seleccionar la opción actual
+            optionCard.classList.add('selected');
+            selectedOption = index;
+            submitBtn.disabled = false;
+        }
+        
+        // Función para mostrar retroalimentación visual
+        function showAnswerFeedback(isCorrect, selectedIndex, correctIndex) {
+            const optionCards = document.querySelectorAll('.option-card');
+            
+            // Marcar la respuesta correcta
+            optionCards[correctIndex].classList.add('correct');
+            
+            // Si la respuesta es incorrecta, marcar la seleccionada como incorrecta
+            if (!isCorrect && selectedIndex !== null) {
+                optionCards[selectedIndex].classList.add('incorrect');
+            }
+            
+            // Deshabilitar todas las opciones
+            optionCards.forEach(card => {
+                card.style.pointerEvents = 'none';
+            });
+        }
+        
+        // Función para enviar respuesta
+        function submitAnswer() {
+            if (selectedOption === null || isAnswerSubmitted) return;
+            
+            isAnswerSubmitted = true;
+            stopTimer();
+            
+            const questions = questionsByLevel[currentLevel];
+            const question = questions[currentQuestionIndex];
+            const isCorrect = question.options[selectedOption].correct;
+            
+            // Encontrar el índice de la respuesta correcta
+            let correctIndex = -1;
+            question.options.forEach((option, index) => {
+                if (option.correct) correctIndex = index;
+            });
+            
+            // Mostrar retroalimentación visual
+            showAnswerFeedback(isCorrect, selectedOption, correctIndex);
+            
+            if (isCorrect) {
+                // Respuesta correcta
+                feedbackMessage.textContent = "¡Correcto! 🎉";
+                feedbackMessage.className = 'feedback-message correct';
+                feedbackMessage.style.display = 'block';
+                
+                // Avanzar a la siguiente pregunta después de un breve delay
+                setTimeout(() => {
+                    currentQuestionIndex++;
+                    
+                    if (currentQuestionIndex < questions.length) {
+                        showQuestion();
+                        startTimer();
+                    } else {
+                        // Nivel completado
+                        showResults();
+                    }
+                }, 2000);
+            } else {
+                // Respuesta incorrecta - quedarse en la misma pregunta
+                feedbackMessage.textContent = "Incorrecto. Sigue intentando. 💪";
+                feedbackMessage.className = 'feedback-message incorrect';
+                feedbackMessage.style.display = 'block';
+                
+                // Deshabilitar el botón para que tenga que seleccionar otra opción
+                submitBtn.disabled = true;
+                
+                // Reiniciar la pregunta después de un tiempo
+                setTimeout(() => {
+                    showQuestion();
+                    startTimer();
+                }, 3000);
+            }
+        }
+        
+        // Función para mostrar resultados
+        function showResults() {
+            finalLevelElement.textContent = `Nivel ${currentLevel} - ${levelNames[currentLevel]}`;
+            adviceTextElement.textContent = adviceByLevel[currentLevel];
+            encouragementTextElement.textContent = encouragementByLevel[currentLevel];
+            
+            // Cambiar título si es el último nivel
+            if (currentLevel >= 5) {
+                resultsTitle.textContent = "¡Felicidades, Maestro del Saber!";
+                nextLevelBtn.style.display = 'none';
+            } else {
+                resultsTitle.textContent = "¡Nivel Completado!";
+                nextLevelBtn.style.display = 'flex';
+            }
+            
+            showScreen(resultsScreen);
+        }
+        
+        // Función para actualizar estadísticas
+        function updateStats() {
+            levelElement.textContent = currentLevel;
+        }
+        
+        // Event Listeners
+        startBtn.addEventListener('click', startGame);
+        submitBtn.addEventListener('click', submitAnswer);
+        
+        nextLevelBtn.addEventListener('click', () => {
+            currentLevel++;
+            currentQuestionIndex = 0;
+            
+            if (questionsByLevel[currentLevel]) {
+                showScreen(gameScreen);
+                updateStats();
+                showQuestion();
+                startTimer();
+            } else {
+                // Si no hay más niveles, volver al inicio
+                alert("¡Felicidades! Has completado todos los niveles.");
+                showScreen(startScreen);
+            }
+        });
+        
+        menuBtn.addEventListener('click', () => {
+            stopTimer();
+            showScreen(startScreen);
+        });
+    </script>
+</body>
+</html>
