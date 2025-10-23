@@ -123,11 +123,33 @@
         .timer {
             font-size: 2.5rem;
             font-weight: bold;
+            margin-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+        
+        .timer.normal {
             background: linear-gradient(to right, var(--accent), var(--primary));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 5px;
+        }
+        
+        .timer.warning {
+            color: #ff9a00;
+            text-shadow: 0 0 10px rgba(255, 154, 0, 0.5);
+            animation: pulse 1s infinite;
+        }
+        
+        .timer.danger {
+            color: #ff3333;
+            text-shadow: 0 0 10px rgba(255, 51, 51, 0.5);
+            animation: pulse 0.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
         }
         
         .timer-label {
@@ -378,7 +400,7 @@
     </div>
     
     <div class="timer-container">
-        <div class="timer" id="timer">30</div>
+        <div class="timer normal" id="timer">30</div>
         <div class="timer-label">segundos restantes</div>
     </div>
     
@@ -596,391 +618,371 @@
                 ]
             },
             {
-                category: "Anatomía",
-                text: "¿Cuál es el hueso más largo del cuerpo humano?",
+                category: "Química Orgánica",
+                text: "¿Qué compuesto es conocido como el principal componente del vinagre?",
                 options: [
-                    { text: "Tibia", correct: false },
-                    { text: "Fémur", correct: true },
-                    { text: "Húmero", correct: false },
-                    { text: "Radio", correct: false }
+                    { text: "Ácido cítrico", correct: false },
+                    { text: "Ácido acético", correct: true },
+                    { text: "Ácido sulfúrico", correct: false },
+                    { text: "Ácido clorhídrico", correct: false }
                 ]
             },
             {
-                category: "Literatura Universal",
-                text: "¿Quién escribió 'Don Quijote de la Mancha'?",
+                category: "Biología Molecular",
+                text: "¿Qué molécula almacena la información genética en los seres vivos?",
                 options: [
-                    { text: "Miguel de Cervantes", correct: true },
-                    { text: "Federico García Lorca", correct: false },
-                    { text: "Lope de Vega", correct: false },
-                    { text: "Calderón de la Barca", correct: false }
+                    { text: "ARN", correct: false },
+                    { text: "ADN", correct: true },
+                    { text: "Proteína", correct: false },
+                    { text: "Lípido", correct: false }
                 ]
             },
             {
-                category: "Geografía Mundial",
-                text: "¿Cuál es el país más grande de América del Sur?",
+                category: "Historia del Arte",
+                text: "¿Qué artista pintó 'La noche estrellada'?",
                 options: [
-                    { text: "Argentina", correct: false },
-                    { text: "Brasil", correct: true },
-                    { text: "Perú", correct: false },
-                    { text: "Colombia", correct: false }
+                    { text: "Pablo Picasso", correct: false },
+                    { text: "Vincent van Gogh", correct: true },
+                    { text: "Claude Monet", correct: false },
+                    { text: "Salvador Dalí", correct: false }
                 ]
             }
         ],
         4: [
             {
-                category: "Matemáticas Superiores",
-                text: "¿Cuál es el resultado de la integral ∫(2x + 3) dx?",
+                category: "Cálculo",
+                text: "¿Cuál es el límite de (x² - 4)/(x - 2) cuando x tiende a 2?",
                 options: [
-                    { text: "x² + 3x + C", correct: true },
-                    { text: "2x² + 3x + C", correct: false },
-                    { text: "x² + 3", correct: false },
-                    { text: "2x + 3 + C", correct: false }
+                    { text: "0", correct: false },
+                    { text: "2", correct: false },
+                    { text: "4", correct: true },
+                    { text: "No existe", correct: false }
                 ]
             },
             {
-                category: "Física Avanzada",
-                text: "¿Qué teoría unifica la relatividad general con la mecánica cuántica?",
+                category: "Física Relativista",
+                text: "¿Qué famosa ecuación relaciona masa y energía?",
                 options: [
-                    { text: "Teoría de cuerdas", correct: true },
-                    { text: "Teoría del todo", correct: false },
-                    { text: "Teoría de la relatividad", correct: false },
-                    { text: "Teoría cuántica de campos", correct: false }
+                    { text: "E = mc", correct: false },
+                    { text: "E = mc²", correct: true },
+                    { text: "E = m²c", correct: false },
+                    { text: "E = m/c²", correct: false }
                 ]
             },
             {
-                category: "Química Orgánica",
-                text: "¿Cuál es la fórmula molecular del benceno?",
+                category: "Química Inorgánica",
+                text: "¿Qué gas noble se utiliza en globos aerostáticos?",
                 options: [
-                    { text: "C6H6", correct: true },
-                    { text: "C6H12", correct: false },
-                    { text: "C7H8", correct: false },
-                    { text: "C8H10", correct: false }
+                    { text: "Neón", correct: false },
+                    { text: "Helio", correct: true },
+                    { text: "Argón", correct: false },
+                    { text: "Kriptón", correct: false }
                 ]
             },
             {
-                category: "Literatura Clásica",
-                text: "¿Quién escribió 'La Odisea'?",
+                category: "Genética",
+                text: "¿Cuántos cromosomas tiene una célula humana normal?",
                 options: [
-                    { text: "Homero", correct: true },
-                    { text: "Virgilio", correct: false },
-                    { text: "Sófocles", correct: false },
-                    { text: "Heródoto", correct: false }
+                    { text: "23", correct: false },
+                    { text: "46", correct: true },
+                    { text: "48", correct: false },
+                    { text: "52", correct: false }
                 ]
             },
             {
                 category: "Filosofía",
                 text: "¿Qué filósofo dijo 'Solo sé que no sé nada'?",
                 options: [
-                    { text: "Sócrates", correct: true },
                     { text: "Platón", correct: false },
                     { text: "Aristóteles", correct: false },
+                    { text: "Sócrates", correct: true },
                     { text: "Descartes", correct: false }
                 ]
             }
         ],
         5: [
             {
-                category: "Cálculo Diferencial",
-                text: "¿Cuál es la derivada de ln(x)?",
+                category: "Matemáticas Superiores",
+                text: "¿Cuál es la integral de 1/x dx?",
                 options: [
-                    { text: "1/x", correct: true },
-                    { text: "x", correct: false },
-                    { text: "e^x", correct: false },
-                    { text: "1", correct: false }
+                    { text: "x²/2 + C", correct: false },
+                    { text: "ln|x| + C", correct: true },
+                    { text: "1/x² + C", correct: false },
+                    { text: "x + C", correct: false }
                 ]
             },
             {
                 category: "Astrofísica",
-                text: "¿Qué es un agujero negro?",
+                text: "¿Qué tipo de estrella es nuestro Sol?",
                 options: [
-                    { text: "Una región del espacio con gravedad tan intensa que nada puede escapar", correct: true },
-                    { text: "Un planeta sin luz", correct: false },
-                    { text: "Una estrella muerta", correct: false },
-                    { text: "Un vacío en el espacio", correct: false }
+                    { text: "Gigante roja", correct: false },
+                    { text: "Enana blanca", correct: false },
+                    { text: "Enana amarilla", correct: true },
+                    { text: "Supergigante azul", correct: false }
                 ]
             },
             {
-                category: "Genética",
-                text: "¿Qué científico descubrió la estructura del ADN?",
+                category: "Bioquímica",
+                text: "¿Qué enzima descompone el almidón en azúcares simples?",
                 options: [
-                    { text: "Watson y Crick", correct: true },
-                    { text: "Mendel", correct: false },
-                    { text: "Darwin", correct: false },
-                    { text: "Pasteur", correct: false }
+                    { text: "Pepsina", correct: false },
+                    { text: "Amilasa", correct: true },
+                    { text: "Lipasa", correct: false },
+                    { text: "Tripsina", correct: false }
                 ]
             },
             {
-                category: "Arte Renacentista",
-                text: "¿Quién pintó 'La última cena'?",
+                category: "Lingüística",
+                text: "¿Cuál es la lengua romance con más hablantes nativos?",
                 options: [
-                    { text: "Leonardo da Vinci", correct: true },
-                    { text: "Miguel Ángel", correct: false },
-                    { text: "Rafael", correct: false },
-                    { text: "Donatello", correct: false }
+                    { text: "Portugués", correct: false },
+                    { text: "Francés", correct: false },
+                    { text: "Español", correct: true },
+                    { text: "Italiano", correct: false }
                 ]
             },
             {
-                category: "Economía Mundial",
-                text: "¿Qué país tiene la economía más grande del mundo?",
+                category: "Economía",
+                text: "¿Qué economista escribió 'La riqueza de las naciones'?",
                 options: [
-                    { text: "Estados Unidos", correct: true },
-                    { text: "China", correct: false },
-                    { text: "Japón", correct: false },
-                    { text: "Alemania", correct: false }
+                    { text: "Karl Marx", correct: false },
+                    { text: "John Maynard Keynes", correct: false },
+                    { text: "Adam Smith", correct: true },
+                    { text: "Milton Friedman", correct: false }
                 ]
             }
         ]
     };
-            // Mensajes reflexivos por nivel
-        const adviceByLevel = {
-            1: "El conocimiento comienza con la curiosidad. ¡Sigue explorando!",
-            2: "Cada respuesta correcta es un paso hacia la sabiduría. ¡Continúa tu camino!",
-            3: "Tu mente se expande con cada nuevo concepto aprendido. ¡Sigue desafiándote!",
-            4: "La perseverancia es la madre de todas las ciencias. ¡No te detengas!",
-            5: "Has demostrado ser un verdadero conocedor. ¡Eres inspiración para otros!"
-        };
+    
+    // Inicialización del juego
+    function initGame() {
+        startBtn.addEventListener('click', startGame);
+        nextLevelBtn.addEventListener('click', nextLevel);
+        menuBtn.addEventListener('click', backToMenu);
+        submitBtn.addEventListener('click', submitAnswer);
+    }
+    
+    // Iniciar el juego
+    function startGame() {
+        currentLevel = 1;
+        currentQuestionIndex = 0;
+        showScreen(gameScreen);
+        loadQuestion();
+        startTimer();
+    }
+    
+    // Cargar pregunta actual
+    function loadQuestion() {
+        const questions = questionsByLevel[currentLevel];
+        const question = questions[currentQuestionIndex];
         
-        // Mensajes de ánimo por nivel
-        const encouragementByLevel = {
-            1: "¡Bien hecho! Estás construyendo una base sólida de conocimiento.",
-            2: "¡Excelente progreso! Tu dedicación está dando frutos.",
-            3: "¡Impresionante! Tu mente se está expandiendo notablemente.",
-            4: "¡Fantástico! Estás dominando múltiples áreas del saber.",
-            5: "¡Extraordinario! Has alcanzado un nivel de conocimiento excepcional."
-        };
+        // Actualizar elementos de la interfaz
+        levelElement.textContent = currentLevel;
+        currentLevelElement.textContent = currentLevel;
+        levelNameElement.textContent = levelNames[currentLevel];
+        questionCountElement.textContent = `${currentQuestionIndex + 1}/${questions.length}`;
+        categoryElement.textContent = question.category;
+        questionTextElement.textContent = question.text;
         
-        // Función para cambiar de pantalla
-        function showScreen(screen) {
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            screen.classList.add('active');
+        // Limpiar opciones anteriores
+        optionsContainer.innerHTML = '';
+        
+        // Generar nuevas opciones
+        const letters = ['A', 'B', 'C', 'D'];
+        question.options.forEach((option, index) => {
+            const optionCard = document.createElement('div');
+            optionCard.className = 'option-card';
+            optionCard.innerHTML = `
+                <div class="option-letter">${letters[index]}</div>
+                <div class="option-text">${option.text}</div>
+            `;
+            
+            optionCard.addEventListener('click', () => selectOption(optionCard, index));
+            optionsContainer.appendChild(optionCard);
+        });
+        
+        // Reiniciar estado
+        selectedOption = null;
+        isAnswerSubmitted = false;
+        submitBtn.disabled = true;
+        feedbackMessage.style.display = 'none';
+        
+        // Reiniciar y comenzar temporizador
+        resetTimer();
+        startTimer();
+    }
+    
+    // Seleccionar una opción
+    function selectOption(optionCard, optionIndex) {
+        if (isAnswerSubmitted) return;
+        
+        // Deseleccionar todas las opciones
+        document.querySelectorAll('.option-card').forEach(card => {
+            card.classList.remove('selected');
+        });
+        
+        // Seleccionar la opción clickeada
+        optionCard.classList.add('selected');
+        selectedOption = optionIndex;
+        submitBtn.disabled = false;
+    }
+    
+    // Enviar respuesta
+    function submitAnswer() {
+        if (selectedOption === null || isAnswerSubmitted) return;
+        
+        isAnswerSubmitted = true;
+        clearInterval(timerInterval);
+        
+        const questions = questionsByLevel[currentLevel];
+        const question = questions[currentQuestionIndex];
+        const isCorrect = question.options[selectedOption].correct;
+        
+        // Mostrar retroalimentación
+        if (isCorrect) {
+            feedbackMessage.textContent = '¡Respuesta correcta! 🎉';
+            feedbackMessage.className = 'feedback-message correct';
+            feedbackMessage.style.display = 'block';
+            
+            // Avanzar a la siguiente pregunta después de un breve tiempo
+            setTimeout(() => {
+                currentQuestionIndex++;
+                
+                if (currentQuestionIndex < questions.length) {
+                    loadQuestion();
+                } else {
+                    completeLevel();
+                }
+            }, 1500);
+        } else {
+            feedbackMessage.textContent = 'Respuesta incorrecta. Intenta de nuevo. 💡';
+            feedbackMessage.className = 'feedback-message incorrect';
+            feedbackMessage.style.display = 'block';
+            
+            // Resaltar la respuesta correcta
+            document.querySelectorAll('.option-card').forEach((card, index) => {
+                if (question.options[index].correct) {
+                    card.classList.add('correct');
+                } else if (index === selectedOption) {
+                    card.classList.add('incorrect');
+                }
+            });
+            
+            // Permitir intentar de nuevo después de un breve tiempo
+            setTimeout(() => {
+                resetQuestionForRetry();
+            }, 2000);
         }
-        
-        // Función para iniciar el temporizador
+    }
+    
+    // Reiniciar pregunta para reintento
+    function resetQuestionForRetry() {
+        feedbackMessage.style.display = 'none';
+        document.querySelectorAll('.option-card').forEach(card => {
+            card.classList.remove('correct', 'incorrect', 'selected');
+        });
+        selectedOption = null;
+        isAnswerSubmitted = false;
+        submitBtn.disabled = true;
+        resetTimer();
+        startTimer();
+    }
+            // Temporizador mejorado
         function startTimer() {
-            timeLeft = 30;
-            timerElement.textContent = timeLeft;
-            clearInterval(timerInterval);
+            clearInterval(timerInterval); // Limpiar cualquier temporizador anterior
             
             timerInterval = setInterval(() => {
                 timeLeft--;
-                timerElement.textContent = timeLeft;
+                timerElement.textContent = timeLeft < 10 ? `0${timeLeft}` : timeLeft;
                 
+                // Cambiar color según el tiempo restante
+                if (timeLeft <= 10) {
+                    timerElement.className = 'timer warning';
+                }
+                
+                if (timeLeft <= 5) {
+                    timerElement.className = 'timer danger';
+                }
+                
+                // Cuando se acaba el tiempo
                 if (timeLeft <= 0) {
                     clearInterval(timerInterval);
-                    // Tiempo agotado - mostrar respuesta correcta
+                    timerElement.textContent = "00";
+                    timerElement.className = 'timer danger';
+                    
+                    // Si no se ha enviado respuesta, mostrar tiempo agotado
                     if (!isAnswerSubmitted) {
-                        const questions = questionsByLevel[currentLevel];
-                        const question = questions[currentQuestionIndex];
-                        
-                        // Encontrar la respuesta correcta
-                        let correctIndex = -1;
-                        question.options.forEach((option, index) => {
-                            if (option.correct) correctIndex = index;
-                        });
-                        
-                        // Mostrar retroalimentación
-                        showAnswerFeedback(false, null, correctIndex);
-                        isAnswerSubmitted = true;
-                        
-                        // Deshabilitar el botón de enviar
-                        submitBtn.disabled = true;
-                        
-                        // Mensaje de tiempo agotado
-                        feedbackMessage.textContent = "⏰ Tiempo agotado. Esta es la respuesta correcta:";
+                        feedbackMessage.textContent = '⏰ ¡Tiempo agotado! Intenta de nuevo.';
                         feedbackMessage.className = 'feedback-message incorrect';
                         feedbackMessage.style.display = 'block';
+                        
+                        // Mostrar la respuesta correcta
+                        const questions = questionsByLevel[currentLevel];
+                        const question = questions[currentQuestionIndex];
+                        document.querySelectorAll('.option-card').forEach((card, index) => {
+                            if (question.options[index].correct) {
+                                card.classList.add('correct');
+                            }
+                        });
+                        
+                        // Permitir reintento después de un tiempo
+                        setTimeout(() => {
+                            resetQuestionForRetry();
+                        }, 2000);
                     }
                 }
             }, 1000);
         }
         
-        // Función para detener el temporizador
-        function stopTimer() {
+        // Reiniciar temporizador
+        function resetTimer() {
             clearInterval(timerInterval);
+            timeLeft = 30;
+            timerElement.textContent = timeLeft;
+            timerElement.className = 'timer normal';
         }
         
-        // Función para iniciar el juego
-        function startGame() {
-            currentLevel = 1;
-            currentQuestionIndex = 0;
-            showScreen(gameScreen);
-            updateStats();
-            showQuestion();
-            startTimer();
-        }
-        
-        // Función para mostrar la pregunta actual
-        function showQuestion() {
-            const questions = questionsByLevel[currentLevel];
-            const question = questions[currentQuestionIndex];
-            
-            // Actualizar elementos de la interfaz
-            categoryElement.textContent = question.category;
-            questionTextElement.textContent = question.text;
-            questionCountElement.textContent = `${currentQuestionIndex + 1}/${questions.length}`;
-            currentLevelElement.textContent = currentLevel;
-            levelNameElement.textContent = levelNames[currentLevel];
-            levelElement.textContent = currentLevel;
-            
-            // Limpiar opciones anteriores
-            optionsContainer.innerHTML = '';
-            
-            // Crear nuevas opciones
-            const letters = ['A', 'B', 'C', 'D'];
-            question.options.forEach((option, index) => {
-                const optionCard = document.createElement('div');
-                optionCard.className = 'option-card';
-                optionCard.innerHTML = `
-                    <div class="option-letter">${letters[index]}</div>
-                    <div class="option-text">${option.text}</div>
-                `;
-                
-                optionCard.addEventListener('click', () => selectOption(optionCard, index));
-                optionsContainer.appendChild(optionCard);
-            });
-            
-            // Reiniciar selección
-            selectedOption = null;
-            submitBtn.disabled = true;
-            isAnswerSubmitted = false;
-            feedbackMessage.style.display = 'none';
-        }
-        
-        // Función para seleccionar una opción
-        function selectOption(optionCard, index) {
-            if (isAnswerSubmitted) return;
-            
-            // Deseleccionar todas las opciones
-            document.querySelectorAll('.option-card').forEach(card => {
-                card.classList.remove('selected');
-            });
-            
-            // Seleccionar la opción actual
-            optionCard.classList.add('selected');
-            selectedOption = index;
-            submitBtn.disabled = false;
-        }
-        
-        // Función para mostrar retroalimentación visual
-        function showAnswerFeedback(isCorrect, selectedIndex, correctIndex) {
-            const optionCards = document.querySelectorAll('.option-card');
-            
-            // Marcar la respuesta correcta
-            optionCards[correctIndex].classList.add('correct');
-            
-            // Si la respuesta es incorrecta, marcar la seleccionada como incorrecta
-            if (!isCorrect && selectedIndex !== null) {
-                optionCards[selectedIndex].classList.add('incorrect');
-            }
-            
-            // Deshabilitar todas las opciones
-            optionCards.forEach(card => {
-                card.style.pointerEvents = 'none';
-            });
-        }
-        
-        // Función para enviar respuesta
-        function submitAnswer() {
-            if (selectedOption === null || isAnswerSubmitted) return;
-            
-            isAnswerSubmitted = true;
-            stopTimer();
-            
-            const questions = questionsByLevel[currentLevel];
-            const question = questions[currentQuestionIndex];
-            const isCorrect = question.options[selectedOption].correct;
-            
-            // Encontrar el índice de la respuesta correcta
-            let correctIndex = -1;
-            question.options.forEach((option, index) => {
-                if (option.correct) correctIndex = index;
-            });
-            
-            // Mostrar retroalimentación visual
-            showAnswerFeedback(isCorrect, selectedOption, correctIndex);
-            
-            if (isCorrect) {
-                // Respuesta correcta
-                feedbackMessage.textContent = "¡Correcto! 🎉";
-                feedbackMessage.className = 'feedback-message correct';
-                feedbackMessage.style.display = 'block';
-                
-                // Avanzar a la siguiente pregunta después de un breve delay
-                setTimeout(() => {
-                    currentQuestionIndex++;
-                    
-                    if (currentQuestionIndex < questions.length) {
-                        showQuestion();
-                        startTimer();
-                    } else {
-                        // Nivel completado
-                        showResults();
-                    }
-                }, 2000);
-            } else {
-                // Respuesta incorrecta - quedarse en la misma pregunta
-                feedbackMessage.textContent = "Incorrecto. Sigue intentando. 💪";
-                feedbackMessage.className = 'feedback-message incorrect';
-                feedbackMessage.style.display = 'block';
-                
-                // Deshabilitar el botón para que tenga que seleccionar otra opción
-                submitBtn.disabled = true;
-                
-                // Reiniciar la pregunta después de un tiempo
-                setTimeout(() => {
-                    showQuestion();
-                    startTimer();
-                }, 3000);
-            }
-        }
-        
-        // Función para mostrar resultados
-        function showResults() {
-            finalLevelElement.textContent = `Nivel ${currentLevel} - ${levelNames[currentLevel]}`;
-            adviceTextElement.textContent = adviceByLevel[currentLevel];
-            encouragementTextElement.textContent = encouragementByLevel[currentLevel];
-            
-            // Cambiar título si es el último nivel
-            if (currentLevel >= 5) {
-                resultsTitle.textContent = "¡Felicidades, Maestro del Saber!";
-                nextLevelBtn.style.display = 'none';
-            } else {
-                resultsTitle.textContent = "¡Nivel Completado!";
-                nextLevelBtn.style.display = 'flex';
-            }
-            
+        // Completar nivel
+        function completeLevel() {
             showScreen(resultsScreen);
+            finalLevelElement.textContent = `Nivel ${currentLevel}`;
+            
+            if (currentLevel < 5) {
+                resultsTitle.textContent = '¡Nivel Completado!';
+                adviceTextElement.textContent = '¡Felicidades! Has demostrado tus conocimientos.';
+                encouragementTextElement.textContent = 'Prepárate para el siguiente desafío.';
+                nextLevelBtn.style.display = 'flex';
+            } else {
+                resultsTitle.textContent = '¡Felicidades!';
+                adviceTextElement.textContent = 'Has completado todos los niveles. Eres un verdadero Maestro del Saber.';
+                encouragementTextElement.textContent = '¡Comparte tu logro con tus amigos!';
+                nextLevelBtn.style.display = 'none';
+            }
         }
         
-        // Función para actualizar estadísticas
-        function updateStats() {
-            levelElement.textContent = currentLevel;
-        }
-        
-        // Event Listeners
-        startBtn.addEventListener('click', startGame);
-        submitBtn.addEventListener('click', submitAnswer);
-        
-        nextLevelBtn.addEventListener('click', () => {
+        // Siguiente nivel
+        function nextLevel() {
             currentLevel++;
             currentQuestionIndex = 0;
-            
-            if (questionsByLevel[currentLevel]) {
-                showScreen(gameScreen);
-                updateStats();
-                showQuestion();
-                startTimer();
-            } else {
-                // Si no hay más niveles, volver al inicio
-                alert("¡Felicidades! Has completado todos los niveles.");
-                showScreen(startScreen);
-            }
-        });
+            showScreen(gameScreen);
+            loadQuestion();
+        }
         
-        menuBtn.addEventListener('click', () => {
-            stopTimer();
+        // Volver al menú
+        function backToMenu() {
             showScreen(startScreen);
-        });
+        }
+        
+        // Mostrar pantalla específica
+        function showScreen(screen) {
+            document.querySelectorAll('.screen').forEach(s => {
+                s.classList.remove('active');
+            });
+            screen.classList.add('active');
+        }
+        
+        // Inicializar el juego cuando se carga la página
+        window.addEventListener('DOMContentLoaded', initGame);
     </script>
 </body>
-</html>
+</html>  
